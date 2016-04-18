@@ -1,0 +1,50 @@
+---
+
+- name: Create airflow home
+  file:
+    path: '{{ airflow_home}}'
+    state: directory
+
+- name: Install required Debian packages
+  apt: 
+    pkg: '{{ item }}'
+    state: present
+    update_cache: yes
+    cache_valid_time: 600
+  with_items: "{{ airflow_deb_packages }}"
+
+- name: Install required Python packages
+  pip: 
+    name: '{{ item }}'
+    state: present
+  with_items: "{{ airflow_pip_packages }}"
+
+- name: Install required Debian packages for plugins
+  apt: 
+    pkg: '{{ item }}'
+    state: present
+    update_cache: yes
+    cache_valid_time: 600
+  with_flattened: "[{{ airflow_plugins|map(attribute='required_debs')|join(',') }}]"
+
+- name: Install required Python packages for plugins
+  pip: 
+    name: '{{ item }}'
+    state: present
+  with_flattened: "[{{ airflow_plugins|map(attribute='required_pips')|join(',') }}]"
+
+- name: Install airflow
+  pip: 
+    name: 'airflow=={{ airflow_version }}'
+    state: present
+
+- name: Install airflow plugins
+  pip: 
+    name: 'airflow[{{ item.name }}]=={{ airflow_version }}'
+    state: present
+  with_items: "{{ airflow_plugins }}"
+
+- name: Setup configuration for airflow 
+  template:
+    src: airflow.cfg.j2
+    dest: '{{ airflow_home}}/airflow.cfg'

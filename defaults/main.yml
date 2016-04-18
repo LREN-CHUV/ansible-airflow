@@ -1,0 +1,26 @@
+---
+
+airflow_version: '1.7.0'
+
+airflow_home: '/usr/local/airflow'
+
+airflow_plugins:
+  - name: celery
+    required_debs: []
+    required_pips: []
+  - name: mysql
+    required_debs:
+      - libmysqlclient18
+    required_pips: []
+    required_pips:
+      - PyMySQL
+  - name: crypto
+    required_debs:
+      - libssl-dev
+    required_pips:
+      - cryptography
+  - name: ldap
+    required_debs:
+      - libkrb5-dev
+      - libsasl2-dev
+    required_pips: []
