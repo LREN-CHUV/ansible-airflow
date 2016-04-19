@@ -3,6 +3,7 @@
 airflow_version: '1.7.0'
 
 airflow_home: '/usr/local/airflow'
+airflow_config: '{{ airflow_home}}/airflow.cfg'
 
 airflow_plugins:
   - name: celery

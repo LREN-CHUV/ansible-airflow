@@ -47,4 +47,4 @@
 - name: Setup configuration for airflow 
   template:
     src: airflow.cfg.j2
-    dest: '{{ airflow_home}}/airflow.cfg'
+    dest: '{{ airflow_config}}'
