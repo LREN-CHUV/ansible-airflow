@@ -1,99 +1,100 @@
 [core]
 # The home folder for airflow, default is ~/airflow
-airflow_home = /usr/local/airflow
+airflow_home = {{ airflow_home }}
 
 # The folder where your airflow pipelines live, most likely a
 # subfolder in a code repository
-dags_folder = /usr/local/airflow/dags
+dags_folder = {{ airflow_dags_folder }}
 
 # The folder where airflow should store its log files. This location
-base_log_folder = /usr/local/airflow/logs
+base_log_folder = {{ airflow_base_log_folder }}
+
 # An S3 location can be provided for log backups
 # For S3, use the full URL to the base folder (starting with "s3://...")
-s3_log_folder = None
+s3_log_folder = {{ airflow_s3_log_folder }}
 
 # The executor class that airflow should use. Choices include
 # SequentialExecutor, LocalExecutor, CeleryExecutor
-executor = LocalExecutor
+airflow_executor = {{ airflow_executor }}
 
 # The SqlAlchemy connection string to the metadata database.
 # SqlAlchemy supports many different database engine, more information
 # their website
-sql_alchemy_conn = mysql://airflow:airflow@mysql/airflow
+sql_alchemy_conn = {{ airflow_sql_alchemy_conn }}
 
 # The SqlAlchemy pool size is the maximum number of database connections
 # in the pool.
-sql_alchemy_pool_size = 5
+sql_alchemy_pool_size = {{ airflow_sql_alchemy_pool_size }}
 
 # The SqlAlchemy pool recycle is the number of seconds a connection
 # can be idle in the pool before it is invalidated. This config does
 # not apply to sqlite.
-sql_alchemy_pool_recycle = 3600
+sql_alchemy_pool_recycle = {{ airflow_sql_alchemy_pool_recycle }}
 
 # The amount of parallelism as a setting to the executor. This defines
 # the max number of task instances that should run simultaneously
 # on this airflow installation
-parallelism = 32
+parallelism = {{ airflow_parallelism }}
 
 # The number of task instances allowed to run concurrently by the scheduler
-dag_concurrency = 16
+dag_concurrency = {{ airflow_dag_concurrency }}
 
 # Are DAGs paused by default at creation
-dags_are_paused_at_creation = False
+dags_are_paused_at_creation = {{ airflow_dags_are_paused_at_creation }}
 
 # The maximum number of active DAG runs per DAG
-max_active_runs_per_dag = 16
+max_active_runs_per_dag = {{ airflow_max_active_runs_per_dag }}
 
 # Whether to load the examples that ship with Airflow. It's good to
 # get started, but you probably want to set this to False in a production
 # environment
-load_examples = True
+load_examples = {{ airflow_load_examples }}
 
 # Where your Airflow plugins are stored
-plugins_folder = /usr/local/airflow/plugins
+plugins_folder = {{ airflow_plugins_folder }}
 
 # Secret key to save connection passwords in the db
-fernet_key = $FERNET_KEY
+fernet_key = {{ airflow_fernet_key }}
 
 # Whether to disable pickling dags
-donot_pickle = False
+donot_pickle = {{ airflow_donot_pickle }}
 
 # How long before timing out a python file import while filling the DagBag
-dagbag_import_timeout = 30
+dagbag_import_timeout = {{ airflow_dagbag_import_timeout }}
 
 [webserver]
 # The base url of your website as airflow cannot guess what domain or
 # cname you are using. This is use in automated emails that
 # airflow sends to point links to the right web server
-base_url = http://localhost:8080
+base_url = {{ airflow_web_base_url }}
 
 # The ip specified when starting the web server
-web_server_host = 0.0.0.0
+web_server_host = {{ airflow_web_server_host }}
 
 # The port on which to run the web server
-web_server_port = 8080
+web_server_port = {{ airflow_web_server_port }}
 
 # Secret key used to run your flask app
-secret_key = temporary_key
+secret_key = {{ airflow_web_secret_key }}
 
 # Number of workers to run the Gunicorn web server
-workers = 4
+workers = {{ airflow_web_workers }}
 
 # The worker class gunicorn should use. Choices include
 # sync (default), eventlet, gevent
-worker_class = sync
+worker_class = {{ airflow_web_worker_class }}
 
 # Expose the configuration file in the web server
-expose_config = true
+expose_config = {{ airflow_web_expose_config }}
 
 # Set to true to turn on authentication : http://pythonhosted.org/airflow/installation.html#web-authentication
-authenticate = False
+authenticate = {{ airflow_web_authenticate }}
 
 # Filter the list of dags by owner name (requires authentication to be enabled)
-filter_by_owner = False
+filter_by_owner = {{ airflow_web_filter_by_owner }}
 
 [email]
-email_backend = airflow.utils.send_email_smtp
+email_backend = {{ airflow_email_backend }}
 
 [smtp]
 # If you want airflow to send emails on retries, failure, and you want to

@@ -44,6 +44,9 @@
     state: present
   with_items: "{{ airflow_plugins }}"
 
+- name: Generate Fernet key
+  ferney_key:
+
 - name: Setup configuration for airflow 
   template:
     src: airflow.cfg.j2

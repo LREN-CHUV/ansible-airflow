@@ -1,0 +1,15 @@
+from cryptography.fernet import Fernet
+
+def main():
+    module = AnsibleModule(
+        argument_spec=dict(
+        )
+    )
+
+    key = Fernet.generate_key()
+
+    module.exit_json(changed: True, ansible_facts: {airflow_fernet_key=key})
+
+# Boilerplate but IMPORTANT code
+from ansible.module_utils.basic import *
+main()
