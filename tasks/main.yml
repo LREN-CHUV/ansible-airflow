@@ -46,6 +46,7 @@
 
 - name: Generate Fernet key
   ferney_key:
+    config_file: '{{ airflow_config}}'
 
 - name: Setup configuration for airflow 
   template:

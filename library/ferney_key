@@ -1,14 +1,36 @@
+#!/usr/bin/python
+
 from cryptography.fernet import Fernet
+import os.path
+
+try:
+    from configparser import ConfigParser
+except ImportError:
+    from ConfigParser import ConfigParser  # ver. < 3.0
 
 def main():
+    global module
     module = AnsibleModule(
         argument_spec=dict(
+        	config_file = dict(required=False)
         )
     )
 
-    key = Fernet.generate_key()
+    config_file = module.params['config_file']
+    changed = False
+    key = None
 
-    module.exit_json(changed: True, ansible_facts: {airflow_fernet_key=key})
+    if config_file and os.path.isfile(config_file):
+
+        config = ConfigParser()
+        config.read(config_file)
+        key = config.get('core','fernet_key')
+
+    if not key:
+      key = Fernet.generate_key()
+      changed = True
+
+    module.exit_json(changed=changed, ansible_facts={'airflow_fernet_key': key})
 
 # Boilerplate but IMPORTANT code
 from ansible.module_utils.basic import *

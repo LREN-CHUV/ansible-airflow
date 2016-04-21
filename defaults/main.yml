@@ -203,7 +203,6 @@ airflow_plugins:
   - name: mysql
     required_debs:
       - libmysqlclient18
-    required_pips: []
     required_pips:
       - PyMySQL
   - name: crypto
