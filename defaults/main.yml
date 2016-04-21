@@ -95,7 +95,6 @@ airflow_web_authenticate: False
 # Filter the list of dags by owner name (requires authentication to be enabled)
 airflow_web_filter_by_owner: False
 
-[email]
 airflow_email_backend: 'airflow.utils.send_email_smtp'
 
 #[smtp]
