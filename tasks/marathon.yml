@@ -1,0 +1,87 @@
+---
+
+# Startup Airflow using Marathon
+
+- name: Wait for Marathon
+  include: ../../marathon-app/tasks/wait-for-marathon.yml
+  vars:
+    uri: "{{ internal_marathon_url }}"
+
+- name: Remove old Airflow Webserver using Marathon
+  marathon_app:
+    uri: "{{ internal_marathon_url }}"
+    id: "{{ airflow_webserver_marathon_id }}"
+    state: "absent"
+    wait_timeout: 600
+  async: 600
+  poll: 1
+
+- name: Remove old Airflow Scheduler using Marathon
+  marathon_app:
+    uri: "{{ internal_marathon_url }}"
+    id: "{{ airflow_scheduler_marathon_id }}"
+    state: "absent"
+    wait_timeout: 600
+  async: 600
+  poll: 1
+
+- name: Launch Airflow Scheduler using Marathon
+  marathon_app:
+    uri: "{{ internal_marathon_url }}"
+    id: "{{ airflow_scheduler_marathon_id }}"
+    state: "present"
+    command: "/usr/local/bin/airflow scheduler"
+    env:
+      AIRFLOW_HOME: "{{ airflow_home }}"
+    user: "{{ airflow_user }}"
+    instances: 1
+    cpus: 0.2
+    mem: 128.0
+    ports: []
+    require_ports: false
+    #constraints: [["hostname", "CLUSTER", "{{ airflow_mysql_marathon_host }}"]]
+    dependencies:
+      - "{{ airflow_db_marathon_id }}"
+    executor: ""
+    wait_timeout: 600
+    health_checks: []
+      - protocol: COMMAND
+        command:
+          value: "pgrep -f 'airflow scheduler'"
+        gracePeriodSeconds: 300
+        intervalSeconds: 60
+        timeoutSeconds: 20
+        maxConsecutiveFailures: 2
+  async: 600
+  poll: 1
+
+- name: Launch Airflow Webserver using Marathon
+  marathon_app:
+    uri: "{{ internal_marathon_url }}"
+    id: "{{ airflow_webserver_marathon_id }}"
+    state: "present"
+    command: "/usr/local/bin/airflow webserver"
+    env:
+      AIRFLOW_HOME: "{{ airflow_home }}"
+    user: "{{ airflow_user }}"
+    instances: 1
+    cpus: 0.2
+    mem: 128.0
+    ports: []
+    require_ports: false
+    #constraints: [["hostname", "CLUSTER", "{{ airflow_mysql_marathon_host }}"]]
+    dependencies:
+      - "{{ airflow_db_marathon_id }}"
+      - "{{ airflow_scheduler_marathon_id }}"
+    executor: ""
+    wait_timeout: 600
+    health_checks:
+      - protocol: HTTP
+        port: "{{ airflow_web_server_port }}"
+        path: "/"
+        gracePeriodSeconds: 300
+        intervalSeconds: 60
+        timeoutSeconds: 20
+        maxConsecutiveFailures: 2
+  async: 600
+  poll: 1
