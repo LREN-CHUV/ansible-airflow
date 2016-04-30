@@ -39,9 +39,8 @@
     mem: 128.0
     ports: []
     require_ports: false
-    #constraints: [["hostname", "CLUSTER", "{{ airflow_mysql_marathon_host }}"]]
-    dependencies:
-      - "{{ airflow_db_marathon_id }}"
+    constraints: '{{ airflow_scheduler_marathon_constraints }}'
+    dependencies: '{{ airflow_scheduler_marathon_dependencies }}'
     executor: ""
     wait_timeout: 600
     health_checks: []
@@ -69,10 +68,8 @@
     mem: 128.0
     ports: []
     require_ports: false
-    #constraints: [["hostname", "CLUSTER", "{{ airflow_mysql_marathon_host }}"]]
-    dependencies:
-      - "{{ airflow_db_marathon_id }}"
-      - "{{ airflow_scheduler_marathon_id }}"
+    constraints: '{{ airflow_webserver_marathon_constraints }}'
+    dependencies: '{{ airflow_webserver_marathon_dependencies }}'
     executor: ""
     wait_timeout: 600
     health_checks:
