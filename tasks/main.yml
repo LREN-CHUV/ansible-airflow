@@ -1,9 +1,21 @@
 ---
 
+- name: Create group for Airflow
+  group:
+    name: '{{ airflow_group }}'
+    state: present
+
+- name: Create user for Airflow
+  user:
+    name: '{{ airflow_user }}'
+    group: '{{ airflow_group }}'
+    home: '{{ airflow_home }}'
+
 - name: Create airflow home
   file:
     path: '{{ airflow_home}}'
     state: directory
+    owner: '{{ airflow_user }}'
 
 - name: Install required Debian packages
   apt: 
@@ -51,3 +63,19 @@
   template:
     src: airflow.cfg.j2
     dest: '{{ airflow_config}}'
+    owner: '{{ airflow_user }}'
+
+- name: Launch Airflow Initdb
+  command: "/usr/local/bin/airflow initdb"
+  environment:
+    AIRFLOW_HOME: "{{ airflow_home }}"
+  become_user: '{{ airflow_user }}'
+
+- name: Launch Airflow Upgradedb
+  command: "/usr/local/bin/airflow upgradedb"
+  environment:
+    AIRFLOW_HOME: "{{ airflow_home }}"
+  become_user: '{{ airflow_user }}'
+
+- include: marathon.yml
+  when: airflow_startup == 'marathon'
