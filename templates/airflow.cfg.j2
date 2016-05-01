@@ -110,7 +110,6 @@ smtp_password = {{ airflow_smtp_password }}
 smtp_mail_from = {{ airflow_smtp_mail_from }}
 {% endif %}
 
-{% if airflow_executor == 'CeleryExecutor' %}
 [celery]
 # This section only applies if you are using the CeleryExecutor in
 # [core] section above
