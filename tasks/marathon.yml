@@ -43,7 +43,7 @@
     dependencies: '{{ airflow_scheduler_marathon_dependencies }}'
     executor: ""
     wait_timeout: 600
-    health_checks: []
+    health_checks:
       - protocol: COMMAND
         command:
           value: "pgrep -f 'airflow scheduler'"
