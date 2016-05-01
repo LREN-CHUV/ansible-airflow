@@ -145,7 +145,6 @@ flower_port = {{ airflow_celery_flower_port }}
 # Default queue that tasks get assigned to and that worker listen on.
 default_queue = {{ airflow_celery_default_queue }}
 
-{% endif %}
 [scheduler]
 # Task instances listen for external kill signal (when you clear tasks
 # from the CLI or the UI), this defines the frequency at which they should
