@@ -7,6 +7,7 @@ airflow_group: 'airflow'
 
 airflow_home: '/usr/local/airflow'
 airflow_config: '{{ airflow_home}}/airflow.cfg'
+airflow_python_path: '/usr/lib/python2.7/site-packages/'
 
 # The folder where your airflow pipelines live, most likely a
 # subfolder in a code repository

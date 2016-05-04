@@ -33,7 +33,7 @@
     command: "/usr/local/bin/airflow scheduler"
     env:
       AIRFLOW_HOME: "{{ airflow_home }}"
-      PYTHONPATH: "/usr/lib/python2.7/site-packages/"
+      PYTHONPATH: "{{ airflow_python_path }}"
     user: "{{ airflow_user }}"
     instances: 1
     cpus: 0.2
@@ -63,7 +63,7 @@
     command: "/usr/local/bin/airflow webserver"
     env:
       AIRFLOW_HOME: "{{ airflow_home }}"
-      PYTHONPATH: "/usr/lib/python2.7/site-packages/"
+      PYTHONPATH: "{{ airflow_python_path }}"
     user: "{{ airflow_user }}"
     instances: 1
     cpus: 0.2
