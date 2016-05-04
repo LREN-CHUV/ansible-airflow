@@ -68,8 +68,11 @@
     instances: 1
     cpus: 0.2
     mem: 128.0
-    ports: []
-    require_ports: false
+    port_definitions:
+      - name: 'http-admin'
+        protocol: 'tcp'
+        port: '{{ airflow_web_server_port }}'
+    require_ports: true
     constraints: '{{ airflow_webserver_marathon_constraints }}'
     dependencies: '{{ airflow_webserver_marathon_dependencies }}'
     executor: ""
