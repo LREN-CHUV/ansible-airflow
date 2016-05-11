@@ -234,3 +234,13 @@ airflow_webserver_marathon_dependencies:
   - "{{ airflow_scheduler_marathon_id }}"
 
 airflow_db_marathon_id: /airflow/db
+
+# Additional settings added to airflow.cfg
+airflow_extra_settings:
+  - name: mysection
+    items:
+      - key: mykey
+        value: myvalue
+      - key: myotherkey
+        value: anothervalue
+

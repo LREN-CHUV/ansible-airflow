@@ -14,7 +14,7 @@ base_log_folder = {{ airflow_base_log_folder }}
 s3_log_folder = {{ airflow_s3_log_folder }}
 
 # The executor class that airflow should use. Choices include
-# SequentialExecutor, LocalExecutor, CeleryExecutor
+# SequentialExecutor, LocalExecutor, CeleryExecutor, MesosExecutor
 executor = {{ airflow_executor }}
 
 # The SqlAlchemy connection string to the metadata database.
@@ -205,3 +205,10 @@ default_secret = {{ airflow_mesos_default_secret }}
 {% endif %}
 
 {% endif %}
+
+{% for setting in airflow_extra_settings %}
+[{{ setting.name }}]
+{% for item in setting.items %}
+{{ item.key }} = {{ item.value }}
+{% endfor %}
+{% endfor %}
