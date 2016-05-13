@@ -206,9 +206,9 @@ default_secret = {{ airflow_mesos_default_secret }}
 
 {% endif %}
 
-{% for setting in airflow_extra_settings %}
-[{{ setting.name }}]
-{% for item in setting.items %}
-{{ item.key }} = {{ item.value }}
+{% for section in airflow_extra_settings %}
+[{{ section.section }}]
+{% for key, value in section.parameters.iteritems() %}
+{{ key }} = {{ value }}
 {% endfor %}
 {% endfor %}
