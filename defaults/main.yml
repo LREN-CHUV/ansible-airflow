@@ -242,3 +242,19 @@ airflow_extra_settings:
       mykey: myvalue
       myotherkey: anothervalue
 
+airflow_deb_packages:
+  - netcat
+  - curl
+  - python-pip
+  - python-dev
+  - libffi-dev
+  - build-essential
+  - locales
+  - libffi-dev
+  - libssl-dev
+
+airflow_pip_packages:
+  - "pytz==2015.7"
+  - pyOpenSSL
+  - ndg-httpsclient
+  - pyasn1
