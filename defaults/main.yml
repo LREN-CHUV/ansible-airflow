@@ -258,3 +258,4 @@ airflow_pip_packages:
   - pyOpenSSL
   - ndg-httpsclient
   - pyasn1
+  - pydicom
