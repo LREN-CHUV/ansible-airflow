@@ -1,6 +1,6 @@
 ---
 
-airflow_version: '1.7.0'
+airflow_version: '1.7.1.2'
 
 airflow_user: 'airflow'
 airflow_group: 'airflow'
