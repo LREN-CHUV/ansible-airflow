@@ -10,6 +10,7 @@
     name: '{{ airflow_user }}'
     group: '{{ airflow_group }}'
     home: '{{ airflow_home }}'
+  when: airflow_user != 'vagrant'
 
 - name: Create airflow home
   file:
