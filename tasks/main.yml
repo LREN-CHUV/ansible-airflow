@@ -82,3 +82,8 @@
 
 - include: marathon.yml
   when: airflow_startup == 'marathon'
+
+- name: Remove uncompatible DAG example (example_twitter_dag.py)
+  file:
+    path: /usr/local/lib/python2.7/dist-packages/airflow/example_dags/example_twitter_dag.py
+    state: absent
