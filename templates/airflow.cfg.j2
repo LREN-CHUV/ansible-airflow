@@ -14,7 +14,7 @@ base_log_folder = {{ airflow_base_log_folder }}
 # 'gs://...') and an Airflow connection id that provides access to the storage
 # location.
 remote_base_log_folder = {{ airflow_remote_base_log_folder }}
-remote_log_conn_id = {{ airflow_log_conn_id }}
+remote_log_conn_id = {{ airflow_remote_log_conn_id }}
 # Use server-side encryption for logs stored in S3
 encrypt_s3_logs = False
 # deprecated option for remote log storage, use remote_base_log_folder instead!
