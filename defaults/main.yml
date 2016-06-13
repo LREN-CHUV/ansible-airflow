@@ -113,7 +113,7 @@ airflow_web_authenticate: False
 # Filter the list of dags by owner name (requires authentication to be enabled)
 airflow_web_filter_by_owner: False
 
-airflow_email_backend: 'airflow.utils.send_email_smtp'
+airflow_email_backend: 'airflow.utils.email.send_email_smtp'
 
 # If you want airflow to send emails on retries, failure, and you want to
 # the airflow.utils.send_email function, you have to configure an smtp
