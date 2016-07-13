@@ -19,7 +19,7 @@
     owner: '{{ airflow_user }}'
 
 - name: Install required Debian packages
-  apt: 
+  apt:
     pkg: '{{ item }}'
     state: present
     update_cache: yes
@@ -27,13 +27,13 @@
   with_items: "{{ airflow_deb_packages }}"
 
 - name: Install required Python packages
-  pip: 
+  pip:
     name: '{{ item }}'
     state: present
   with_items: "{{ airflow_pip_packages }}"
 
 - name: Install required Debian packages for plugins
-  apt: 
+  apt:
     pkg: '{{ item }}'
     state: present
     update_cache: yes
@@ -41,18 +41,18 @@
   with_flattened: "[{{ airflow_plugins|map(attribute='required_debs')|join(',') }}]"
 
 - name: Install required Python packages for plugins
-  pip: 
+  pip:
     name: '{{ item }}'
     state: present
   with_flattened: "[{{ airflow_plugins|map(attribute='required_pips')|join(',') }}]"
 
-- name: Install airflow
-  pip: 
+- name: Install airflow (first time installation takes a long time)
+  pip:
     name: 'airflow=={{ airflow_version }}'
     state: present
 
 - name: Install airflow plugins
-  pip: 
+  pip:
     name: 'airflow[{{ item.name }}]=={{ airflow_version }}'
     state: present
   with_items: "{{ airflow_plugins }}"
@@ -61,7 +61,7 @@
   ferney_key:
     config_file: '{{ airflow_config}}'
 
-- name: Setup configuration for airflow 
+- name: Setup configuration for airflow
   template:
     src: airflow.cfg.j2
     dest: '{{ airflow_config}}'
