@@ -15,6 +15,7 @@
     wait_timeout: 600
   async: 600
   poll: 1
+  delegate_to: "{{ groups['control'][0] }}"
 
 - name: Remove old Airflow Scheduler using Marathon
   marathon_app:
@@ -24,6 +25,7 @@
     wait_timeout: 600
   async: 600
   poll: 1
+  delegate_to: "{{ groups['control'][0] }}"
 
 - name: Launch Airflow Scheduler using Marathon
   marathon_app:
@@ -36,8 +38,8 @@
       PYTHONPATH: "{{ airflow_python_path }}"
     user: "{{ airflow_user }}"
     instances: 1
-    cpus: 0.2
-    mem: 128.0
+    cpus: '{{ airflow_scheduler_cpus }}'
+    mem: '{{ airflow_scheduler_mem }}'
     ports: []
     require_ports: false
     constraints: '{{ airflow_scheduler_marathon_constraints }}'
@@ -54,6 +56,7 @@
         maxConsecutiveFailures: 2
   async: 600
   poll: 1
+  delegate_to: "{{ groups['control'][0] }}"
 
 - name: Launch Airflow Webserver using Marathon
   marathon_app:
@@ -66,8 +69,8 @@
       PYTHONPATH: "{{ airflow_python_path }}"
     user: "{{ airflow_user }}"
     instances: 1
-    cpus: 0.2
-    mem: 128.0
+    cpus: '{{ airflow_webserver_cpus }}'
+    mem: '{{ airflow_webserver_mem }}'
     port_definitions:
       - name: 'http-admin'
         protocol: 'tcp'
@@ -87,3 +90,4 @@
         maxConsecutiveFailures: 2
   async: 600
   poll: 1
+  delegate_to: "{{ groups['control'][0] }}"

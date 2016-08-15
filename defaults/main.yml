@@ -9,6 +9,11 @@ airflow_home: '/usr/local/airflow'
 airflow_config: '{{ airflow_home}}/airflow.cfg'
 airflow_python_path: '/usr/lib/python2.7/site-packages/'
 
+airflow_scheduler_cpus: 0.2
+airflow_scheduler_mem: 128.0
+airflow_webserver_cpus: 0.2
+airflow_webserver_mem: 128.0
+
 # The folder where your airflow pipelines live, most likely a
 # subfolder in a code repository
 airflow_dags_folder: '{{ airflow_home}}/dags'
