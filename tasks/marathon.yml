@@ -16,6 +16,8 @@
   async: 600
   poll: 1
   delegate_to: "{{ groups['control'][0] }}"
+  tags:
+  - skip_ansible_lint
 
 - name: Remove old Airflow Scheduler using Marathon
   marathon_app:
@@ -26,6 +28,8 @@
   async: 600
   poll: 1
   delegate_to: "{{ groups['control'][0] }}"
+  tags:
+  - skip_ansible_lint
 
 - name: Launch Airflow Scheduler using Marathon
   marathon_app:
@@ -57,6 +61,8 @@
   async: 600
   poll: 1
   delegate_to: "{{ groups['control'][0] }}"
+  tags:
+  - skip_ansible_lint
 
 - name: Launch Airflow Webserver using Marathon
   marathon_app:
@@ -91,3 +97,5 @@
   async: 600
   poll: 1
   delegate_to: "{{ groups['control'][0] }}"
+  tags:
+  - skip_ansible_lint

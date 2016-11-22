@@ -60,3 +60,9 @@ target/
 
 #Ipython Notebook
 .ipynb_checkpoints
+
+# Ansible
+.vagrant
+.cache/
+.molecule/
+*.retry
