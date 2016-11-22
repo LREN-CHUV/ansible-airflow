@@ -72,6 +72,7 @@
   environment:
     AIRFLOW_HOME: "{{ airflow_home }}"
     PYTHONPATH: "{{ airflow_python_path }}"
+  become: true
   become_user: '{{ airflow_user }}'
 
 - name: Launch Airflow Upgradedb
@@ -79,6 +80,7 @@
   environment:
     AIRFLOW_HOME: "{{ airflow_home }}"
     PYTHONPATH: "{{ airflow_python_path }}"
+  become: true
   become_user: '{{ airflow_user }}'
 
 - include: marathon.yml

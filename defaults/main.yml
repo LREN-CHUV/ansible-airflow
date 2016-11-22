@@ -244,15 +244,21 @@ airflow_plugins:
 # Startup method. One of service, marathon
 airflow_startup: 'service'
 
+# Pin Airflow scheduler to a particular host as it needs to store its files in a known place. The hostname should be the name known by Marathon / Mesos
+airflow_scheduler_marathon_host: '{{ inventory_hostname }}'
+
 airflow_scheduler_marathon_id: '/airflow/scheduler'
 airflow_scheduler_marathon_constraints: []
-#airflow_scheduler_marathon_constraints: [["hostname", "CLUSTER", "{{ airflow_mysql_marathon_host }}"]]
+airflow_scheduler_marathon_constraints: [["hostname", "CLUSTER", "{{ airflow_scheduler_marathon_host }}"]]
 airflow_scheduler_marathon_dependencies:
   - "{{ airflow_db_marathon_id }}"
 
+# Pin Airflow webserver to a particular host as it needs to store its files in a known place. The hostname should be the name known by Marathon / Mesos
+airflow_webserver_marathon_host: '{{ inventory_hostname }}'
+
 airflow_webserver_marathon_id: '/airflow/webserver'
 airflow_webserver_marathon_constraints: []
-#airflow_webserver_marathon_constraints: [["hostname", "CLUSTER", "{{ airflow_mysql_marathon_host }}"]]
+airflow_webserver_marathon_constraints: [["hostname", "CLUSTER", "{{ airflow_webserver_marathon_host }}"]]
 airflow_webserver_marathon_dependencies:
   - "{{ airflow_db_marathon_id }}"
   - "{{ airflow_scheduler_marathon_id }}"
