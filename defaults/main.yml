@@ -35,7 +35,7 @@ airflow_executor: 'LocalExecutor'
 # The SqlAlchemy connection string to the metadata database.
 # SqlAlchemy supports many different database engine, more information
 # their website
-airflow_sql_alchemy_conn: 'mysql://airflow:airflow@mysql/airflow'
+airflow_sql_alchemy_conn: 'postgresql://airflow:airflow@postgresql/airflow'
 
 # The SqlAlchemy pool size is the maximum number of database connections
 # in the pool.
@@ -224,12 +224,11 @@ airflow_plugins:
   - name: celery
     required_debs: []
     required_pips: []
-  - name: mysql
+  - name: postgresql
     required_debs:
-      - libmysqlclient18
-      - libmysqlclient-dev
-    required_pips:
-      - PyMySQL
+      - postgresql-client
+      - python-psycopg2
+    required_pips: []
   - name: crypto
     required_debs:
       - libssl-dev
@@ -246,13 +245,13 @@ airflow_startup: 'service'
 
 airflow_scheduler_marathon_id: '/airflow/scheduler'
 airflow_scheduler_marathon_constraints: []
-#airflow_scheduler_marathon_constraints: [["hostname", "CLUSTER", "{{ airflow_mysql_marathon_host }}"]]
+#airflow_scheduler_marathon_constraints: [["hostname", "CLUSTER", "{{ airflow_postgresql_marathon_host }}"]]
 airflow_scheduler_marathon_dependencies:
   - "{{ airflow_db_marathon_id }}"
 
 airflow_webserver_marathon_id: '/airflow/webserver'
 airflow_webserver_marathon_constraints: []
-#airflow_webserver_marathon_constraints: [["hostname", "CLUSTER", "{{ airflow_mysql_marathon_host }}"]]
+#airflow_webserver_marathon_constraints: [["hostname", "CLUSTER", "{{ airflow_postgresql_marathon_host }}"]]
 airflow_webserver_marathon_dependencies:
   - "{{ airflow_db_marathon_id }}"
   - "{{ airflow_scheduler_marathon_id }}"
@@ -276,6 +275,8 @@ airflow_deb_packages:
   - locales
   - libffi-dev
   - libssl-dev
+  - postgresql-client
+  - python-psycopg2
 
 airflow_pip_packages:
   - "pytz==2015.7"
