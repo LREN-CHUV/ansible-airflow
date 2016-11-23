@@ -73,7 +73,7 @@
     state: absent
 
 - name: Launch Airflow Initdb
-  command: "/usr/local/bin/airflow initdb"
+  shell: "/usr/local/bin/airflow initdb"
   register: airflow_initdb_result
   environment:
     AIRFLOW_HOME: "{{ airflow_home }}"
@@ -83,7 +83,7 @@
   changed_when: "'Running upgrade' in airflow_initdb_result.stdout"
 
 - name: Launch Airflow Upgradedb
-  command: "/usr/local/bin/airflow upgradedb"
+  shell: "/usr/local/bin/airflow upgradedb"
   register: airflow_upgradedb_result
   environment:
     AIRFLOW_HOME: "{{ airflow_home }}"
