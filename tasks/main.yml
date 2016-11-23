@@ -38,13 +38,13 @@
     state: present
     update_cache: yes
     cache_valid_time: 600
-  with_flattened: "{{ [ airflow_plugins|map(attribute='required_debs')|join(',') ] }}"
+  with_flattened: "{{ airflow_plugins|map(attribute='required_debs')|list }}"
 
 - name: Install required Python packages for plugins
   pip:
     name: '{{ item }}'
     state: present
-  with_flattened: "{{ [ airflow_plugins|map(attribute='required_pips')|join(',') ] }}"
+  with_flattened: "{{ airflow_plugins|map(attribute='required_pips')|list }}"
 
 - name: Install airflow (first time installation takes a long time)
   pip:
