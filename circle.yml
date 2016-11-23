@@ -14,11 +14,11 @@ dependencies:
 checkout:
   post:
     - mkdir -p .molecule/roles
-    - git clone https://github.com/ludovicc/ansible-marathon_app.git .molecule/roles/marathon-app
+    - git clone https://github.com/ludovicc/ansible-marathon_app.git ../marathon-app
     - pip install -r tests/requirements.txt
 
 test:
   override:
     - pre-commit install
     - pre-commit run --all-files
-    - molecule test --driver docker
+    #- molecule test --driver docker
