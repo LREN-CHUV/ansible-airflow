@@ -4,12 +4,20 @@ box: williamyeh/ansible:ubuntu16.04
 build:
   # The steps that will be executed on build
   steps:
+    - install-packages:
+        packages: python-pip libffi-dev libssh-dev
     - script:
         name: install Python requirements
         sudo: yes
         code: |
-          apt-get update
-          apt-get install -y python-pip libffi-dev libssh-dev
+          pip install -r tests/requirements.txt
+    - script:
+        name: Add this project as a role
+        sudo: yes
+        code: |
+          mkdir -p .molecule/roles
+          cd .molecule/roles/
+          ln -s -r ../.. ansible-airflow
           pip install -r tests/requirements.txt
     - script:
         name: test installation of Airflow with this role
