@@ -8,11 +8,12 @@ dependencies:
   cache_directories:
     - "~/docker"
 
-  override: []
+  override:
+    - pip install --upgrade pip
 
 checkout:
   post:
-    - pip install tests/requirements.yml
+    - pip install tests/requirements.txt
 
 test:
   override:
