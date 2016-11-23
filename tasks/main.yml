@@ -80,7 +80,7 @@
     PYTHONPATH: "{{ airflow_python_path }}"
   become: true
   become_user: '{{ airflow_user }}'
-#  changed_when: "airflow_initdb_result.stdout.find('Running upgrade') >= 0"
+#  changed_when: "airflow_initdb_result.failed or airflow_initdb_result.stdout.find('Running upgrade') >= 0"
 
 - debug: var=airflow_initdb_result
 
@@ -92,7 +92,7 @@
     PYTHONPATH: "{{ airflow_python_path }}"
   become: true
   become_user: '{{ airflow_user }}'
-  changed_when: "airflow_upgradedb_result.stdout.find('Running upgrade') >= 0"
+  changed_when: "airflow_upgradedb_result.failed or airflow_upgradedb_result.stdout.find('Running upgrade') >= 0"
 
 - include: marathon.yml
   when: airflow_startup == 'marathon'
