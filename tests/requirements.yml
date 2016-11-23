@@ -1,0 +1,4 @@
+---
+- src: https://github.com/ludovicc/ansible-marathon_app
+  scm: git
+  name: marathon-app

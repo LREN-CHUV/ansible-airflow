@@ -1,6 +1,6 @@
 ---
 
-airflow_version: '1.7.1.2'
+airflow_version: '1.7.1.3'
 
 airflow_user: 'airflow'
 airflow_group: 'airflow'
@@ -35,6 +35,7 @@ airflow_executor: 'LocalExecutor'
 # The SqlAlchemy connection string to the metadata database.
 # SqlAlchemy supports many different database engine, more information
 # their website
+#airflow_sql_alchemy_conn: 'mysql://airflow:airflow@mysql/airflow'
 airflow_sql_alchemy_conn: 'postgresql://airflow:airflow@postgresql/airflow'
 
 # The SqlAlchemy pool size is the maximum number of database connections
@@ -229,6 +230,12 @@ airflow_plugins:
       - postgresql-client
       - python-psycopg2
     required_pips: []
+  #- name: mysql
+  #  required_debs:
+  #    - libmysqlclient18
+  #    - libmysqlclient-dev
+  #  required_pips:
+  #    - PyMySQL
   - name: crypto
     required_debs:
       - libssl-dev
@@ -243,15 +250,21 @@ airflow_plugins:
 # Startup method. One of service, marathon
 airflow_startup: 'service'
 
+# Pin Airflow scheduler to a particular host as it needs to store its files in a known place. The hostname should be the name known by Marathon / Mesos
+airflow_scheduler_marathon_host: '{{ inventory_hostname }}'
+
 airflow_scheduler_marathon_id: '/airflow/scheduler'
 airflow_scheduler_marathon_constraints: []
-#airflow_scheduler_marathon_constraints: [["hostname", "CLUSTER", "{{ airflow_postgresql_marathon_host }}"]]
+airflow_scheduler_marathon_constraints: [["hostname", "CLUSTER", "{{ airflow_scheduler_marathon_host }}"]]
 airflow_scheduler_marathon_dependencies:
   - "{{ airflow_db_marathon_id }}"
 
+# Pin Airflow webserver to a particular host as it needs to store its files in a known place. The hostname should be the name known by Marathon / Mesos
+airflow_webserver_marathon_host: '{{ inventory_hostname }}'
+
 airflow_webserver_marathon_id: '/airflow/webserver'
 airflow_webserver_marathon_constraints: []
-#airflow_webserver_marathon_constraints: [["hostname", "CLUSTER", "{{ airflow_postgresql_marathon_host }}"]]
+airflow_webserver_marathon_constraints: [["hostname", "CLUSTER", "{{ airflow_webserver_marathon_host }}"]]
 airflow_webserver_marathon_dependencies:
   - "{{ airflow_db_marathon_id }}"
   - "{{ airflow_scheduler_marathon_id }}"
@@ -275,8 +288,6 @@ airflow_deb_packages:
   - locales
   - libffi-dev
   - libssl-dev
-  - postgresql-client
-  - python-psycopg2
 
 airflow_pip_packages:
   - "pytz==2015.7"

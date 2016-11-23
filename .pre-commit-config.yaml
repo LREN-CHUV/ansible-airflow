@@ -1,0 +1,8 @@
+-   repo: https://github.com/willthames/ansible-lint.git
+    sha: v3.4.4
+    hooks:
+    -   id: ansible-lint
+        files: \.(yaml|yml)$
+        name: Ansible-lint
+        description: This hook runs ansible-lint.
+        language: python

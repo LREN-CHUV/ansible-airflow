@@ -1,0 +1,18 @@
+---
+ansible:
+  verbose: vv
+  playbook: tests/playbook.yml
+  diff: True
+  config_file: ../ansible.cfg
+
+dependencies:
+  name: galaxy
+  requirements_file: tests/requirements.yml
+
+docker:
+  containers:
+    - name: airflow-ubuntu
+      ansible_groups:
+        - airflow
+      image: ubuntu
+      image_version: 16.04
