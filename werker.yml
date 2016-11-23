@@ -1,0 +1,21 @@
+box: williamyeh/ansible:ubuntu16.04
+
+# Build definition
+build:
+  # The steps that will be executed on build
+  steps:
+    - script:
+        name: install Python requirements
+        sudo: yes
+        code: |
+          pip install -r tests/requirements.txt
+    - script:
+        name: install Python requirements
+        sudo: yes
+        code: |
+          # Run the role/playbook with ansible-playbook.
+          ansible-playbook -i tests/inventory tests/test_travis.yml --connection=local --sudo -vvvv
+          # Run the role/playbook again, checking to make sure it's idempotent.
+          ansible-playbook -i tests/inventory tests/test_travis.yml --connection=local --sudo \
+            | grep -q 'changed=0.*failed=0' \
+            && (echo 'Idempotence test: pass' && exit 0) || (echo 'Idempotence test: fail' && exit 1)
