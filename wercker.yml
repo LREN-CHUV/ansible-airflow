@@ -18,7 +18,6 @@ build:
           mkdir -p .molecule/roles
           cd .molecule/roles/
           ln -s -r ../.. ansible-airflow
-          pip install -r tests/requirements.txt
     - script:
         name: test installation of Airflow with this role
         sudo: yes
