@@ -35,7 +35,8 @@ airflow_executor: 'LocalExecutor'
 # The SqlAlchemy connection string to the metadata database.
 # SqlAlchemy supports many different database engine, more information
 # their website
-airflow_sql_alchemy_conn: 'mysql://airflow:airflow@mysql/airflow'
+#airflow_sql_alchemy_conn: 'mysql://airflow:airflow@mysql/airflow'
+airflow_sql_alchemy_conn: 'postgresql://airflow:airflow@postgresql/airflow'
 
 # The SqlAlchemy pool size is the maximum number of database connections
 # in the pool.
@@ -224,12 +225,17 @@ airflow_plugins:
   - name: celery
     required_debs: []
     required_pips: []
-  - name: mysql
+  - name: postgresql
     required_debs:
-      - libmysqlclient18
-      - libmysqlclient-dev
-    required_pips:
-      - PyMySQL
+      - postgresql-client
+      - python-psycopg2
+    required_pips: []
+  #- name: mysql
+  #  required_debs:
+  #    - libmysqlclient18
+  #    - libmysqlclient-dev
+  #  required_pips:
+  #    - PyMySQL
   - name: crypto
     required_debs:
       - libssl-dev
