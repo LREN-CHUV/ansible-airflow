@@ -2,9 +2,9 @@ box: williamyeh/ansible:ubuntu16.04
 
 services:
   - id: postgres
-     env:
-       POSTGRES_PASSWORD: airflowsecret
-       POSTGRES_USER: airflow
+    env:
+      POSTGRES_PASSWORD: airflowsecret
+      POSTGRES_USER: airflow
 
 # Build definition
 build:
