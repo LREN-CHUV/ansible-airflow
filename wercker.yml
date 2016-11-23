@@ -5,7 +5,7 @@ build:
   # The steps that will be executed on build
   steps:
     - install-packages:
-        packages: git python-pip libffi-dev libssh-dev
+        packages: git sudo python-pip libffi-dev libssh-dev
     - script:
         name: install Python requirements
         sudo: yes
