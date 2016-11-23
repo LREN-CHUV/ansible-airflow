@@ -80,7 +80,9 @@
     PYTHONPATH: "{{ airflow_python_path }}"
   become: true
   become_user: '{{ airflow_user }}'
-  changed_when: "airflow_initdb_result.stdout.find('Running upgrade') >= 0"
+#  changed_when: "airflow_initdb_result.stdout.find('Running upgrade') >= 0"
+
+- debug: var=airflow_initdb_result
 
 - name: Launch Airflow Upgradedb
   command: "/usr/local/bin/airflow upgradedb"
