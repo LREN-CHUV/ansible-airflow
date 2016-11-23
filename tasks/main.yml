@@ -73,24 +73,24 @@
     state: absent
 
 - name: Launch Airflow Initdb
-  shell: "/usr/local/bin/airflow initdb"
+  command: "/usr/local/bin/airflow initdb"
   register: airflow_initdb_result
   environment:
     AIRFLOW_HOME: "{{ airflow_home }}"
     PYTHONPATH: "{{ airflow_python_path }}"
   become: true
   become_user: '{{ airflow_user }}'
-  changed_when: "'Running upgrade' in airflow_initdb_result.stdout"
+  changed_when: "airflow_initdb_result.stdout.find('Running upgrade') >= 0"
 
 - name: Launch Airflow Upgradedb
-  shell: "/usr/local/bin/airflow upgradedb"
+  command: "/usr/local/bin/airflow upgradedb"
   register: airflow_upgradedb_result
   environment:
     AIRFLOW_HOME: "{{ airflow_home }}"
     PYTHONPATH: "{{ airflow_python_path }}"
   become: true
   become_user: '{{ airflow_user }}'
-  changed_when: "'Running upgrade' in airflow_upgradedb_result.stdout"
+  changed_when: "airflow_upgradedb_result.stdout.find('Running upgrade') >= 0"
 
 - include: marathon.yml
   when: airflow_startup == 'marathon'
