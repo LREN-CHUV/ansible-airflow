@@ -74,19 +74,23 @@
 
 - name: Launch Airflow Initdb
   command: "/usr/local/bin/airflow initdb"
+  register: airflow_initdb_result
   environment:
     AIRFLOW_HOME: "{{ airflow_home }}"
     PYTHONPATH: "{{ airflow_python_path }}"
   become: true
   become_user: '{{ airflow_user }}'
+  changed_when: "'Running upgrade' in airflow_initdb_result.stdout"
 
 - name: Launch Airflow Upgradedb
   command: "/usr/local/bin/airflow upgradedb"
+  register: airflow_upgradedb_result
   environment:
     AIRFLOW_HOME: "{{ airflow_home }}"
     PYTHONPATH: "{{ airflow_python_path }}"
   become: true
   become_user: '{{ airflow_user }}'
+  changed_when: "'Running upgrade' in airflow_upgradedb_result.stdout"
 
 - include: marathon.yml
   when: airflow_startup == 'marathon'

@@ -9,7 +9,7 @@ build:
         sudo: yes
         code: |
           apt-get update
-          apt-get install python-pip
+          apt-get install -y python-pip
           pip2.7 install -r tests/requirements.txt
     - script:
         name: install Python requirements
