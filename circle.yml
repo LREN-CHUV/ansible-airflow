@@ -11,18 +11,8 @@ dependencies:
   override:
     - pip install tests/requirements.yml
 
-checkout:
-  post:
-    - rm -rf * .git* .pre-commit-config.yaml .not-used
-    - git clone git@github.com:LREN-CHUV/dev-setup.git .
-    - git submodule sync
-    - git submodule update --init
-    - mkdir -p ~/Desktop
-
 test:
-    override:
-        - pre-commit install
-        - pre-commit run --all-files
-        - ./common/scripts/bootstrap.sh --skip-git-crypt
-        - ./setup.sh All Standard skip_docker skip_yed
-        - ./setup.sh All Hipster
+  override:
+    - pre-commit install
+    - pre-commit run --all-files
+    - molecule test --driver docker
