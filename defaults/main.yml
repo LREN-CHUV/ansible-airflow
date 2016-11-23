@@ -254,7 +254,6 @@ airflow_startup: 'service'
 airflow_scheduler_marathon_host: '{{ inventory_hostname }}'
 
 airflow_scheduler_marathon_id: '/airflow/scheduler'
-airflow_scheduler_marathon_constraints: []
 airflow_scheduler_marathon_constraints: [["hostname", "CLUSTER", "{{ airflow_scheduler_marathon_host }}"]]
 airflow_scheduler_marathon_dependencies:
   - "{{ airflow_db_marathon_id }}"
@@ -263,7 +262,6 @@ airflow_scheduler_marathon_dependencies:
 airflow_webserver_marathon_host: '{{ inventory_hostname }}'
 
 airflow_webserver_marathon_id: '/airflow/webserver'
-airflow_webserver_marathon_constraints: []
 airflow_webserver_marathon_constraints: [["hostname", "CLUSTER", "{{ airflow_webserver_marathon_host }}"]]
 airflow_webserver_marathon_dependencies:
   - "{{ airflow_db_marathon_id }}"
