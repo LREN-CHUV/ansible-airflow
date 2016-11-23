@@ -12,15 +12,13 @@ build:
         code: |
           pip install -r tests/requirements.txt
     - script:
-        name: Add this project as a role
+        name: Add this project as a role and marathon-app
         sudo: yes
         code: |
           mkdir -p .molecule/roles
           cd .molecule/roles/
           ln -s -r ../.. ansible-airflow
-          pwd
-          ls .
-          ls ansible-airflow/
+          git clone https://github.com/ludovicc/ansible-marathon_app.git marathon-app
     - script:
         name: test installation of Airflow with this role
         sudo: yes
