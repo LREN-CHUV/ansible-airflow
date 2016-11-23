@@ -14,7 +14,7 @@ dependencies:
 checkout:
   post:
     - mkdir -p .molecule/roles
-    - git checkout https://github.com/ludovicc/ansible-marathon_app.git .molecule/roles/marathon-app
+    - git clone https://github.com/ludovicc/ansible-marathon_app.git .molecule/roles/marathon-app
     - pip install -r tests/requirements.txt
 
 test:
