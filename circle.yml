@@ -13,7 +13,7 @@ dependencies:
 
 checkout:
   post:
-    - pip install tests/requirements.txt
+    - pip install -r tests/requirements.txt
 
 test:
   override:
