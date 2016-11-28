@@ -10,7 +10,7 @@ airflow_config: '{{ airflow_home}}/airflow.cfg'
 airflow_python_path: '/usr/lib/python2.7/site-packages/'
 
 airflow_scheduler_cpus: 0.2
-airflow_scheduler_mem: 256.0
+airflow_scheduler_mem: 364.0
 airflow_webserver_cpus: 0.2
 airflow_webserver_mem: 256.0
 
@@ -292,3 +292,11 @@ airflow_pip_packages:
   - pyOpenSSL
   - ndg-httpsclient
   - pyasn1
+
+# List of Git url and destination folder to download or update code for the pipelines
+airflow_pipelines: []
+#  - url=
+#    version=latest
+#    verify_commit=False
+#    key_file=None
+#    dest=

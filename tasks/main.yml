@@ -92,5 +92,17 @@
   become_user: '{{ airflow_user }}'
   changed_when: "airflow_upgradedb_result.rc != 0 or airflow_upgradedb_result.stdout.find('Running upgrade') >= 0"
 
+- name: Install Airflow pipelines
+  git:
+    repo: '{{ item.url }}'
+    version: "{{ item.version | default('latest') }}"
+    verify_commit: "{{ item.verify_commit | default(False) }}"
+    key_file: "{{ item.key_file | default(None) }}"
+    dest: '{{ item.dest }}'
+    depth: 1
+    force: yes
+    update: yes
+  with_items: "{{ airflow_pipelines }}"
+
 - include: marathon.yml
   when: airflow_startup == 'marathon'
