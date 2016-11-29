@@ -103,6 +103,8 @@
     force: yes
     update: yes
   with_items: "{{ airflow_scripts }}"
+  tags:
+    - airflow_scripts
 
 - include: marathon.yml
   when: airflow_startup == 'marathon'
