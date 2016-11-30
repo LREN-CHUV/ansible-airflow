@@ -2,6 +2,9 @@
 
 airflow_version: '1.7.1.3'
 
+python_pip: '/usr/bin/pip'
+airflow_pip: '{{ python_pip }}'
+
 airflow_user: 'airflow'
 airflow_group: 'airflow'
 

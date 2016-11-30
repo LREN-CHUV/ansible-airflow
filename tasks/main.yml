@@ -29,6 +29,7 @@
 - name: Install required Python packages
   pip:
     name: '{{ item }}'
+    executable: '{{ airflow_pip }}'
     state: present
   with_items: "{{ airflow_pip_packages }}"
 
@@ -43,17 +44,20 @@
 - name: Install required Python packages for plugins
   pip:
     name: '{{ item }}'
+    executable: '{{ airflow_pip }}'
     state: present
   with_flattened: "{{ airflow_plugins|map(attribute='required_pips')|list }}"
 
 - name: Install airflow (first time installation takes a long time)
   pip:
     name: 'airflow=={{ airflow_version }}'
+    executable: '{{ airflow_pip }}'
     state: present
 
 - name: Install airflow plugins
   pip:
     name: 'airflow[{{ item.name }}]=={{ airflow_version }}'
+    executable: '{{ airflow_pip }}'
     state: present
   with_items: "{{ airflow_plugins }}"
 
