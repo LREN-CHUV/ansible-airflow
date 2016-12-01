@@ -70,6 +70,7 @@
     src: airflow.cfg.j2
     dest: '{{ airflow_config}}'
     owner: '{{ airflow_user }}'
+    mode: 0640
 
 - name: Remove uncompatible DAG example (example_twitter_dag.py)
   file:
