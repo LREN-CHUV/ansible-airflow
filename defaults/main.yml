@@ -2,6 +2,10 @@
 
 airflow_version: '1.7.1.3'
 
+# Control which part of Airflow is deployed: master = webserver + database
+airflow_install_master: true
+airflow_install_agent: true
+
 python_pip: '/usr/bin/pip'
 airflow_pip: '{{ python_pip }}'
 

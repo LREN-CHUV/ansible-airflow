@@ -16,6 +16,7 @@
   async: 600
   poll: 1
   delegate_to: "{{ groups['control'][0] }}"
+  when: airflow_install_master or airflow_install_agent
   tags:
   - skip_ansible_lint
 
@@ -28,6 +29,7 @@
   async: 600
   poll: 1
   delegate_to: "{{ groups['control'][0] }}"
+  when: airflow_install_agent
   tags:
   - skip_ansible_lint
 
@@ -61,6 +63,7 @@
   async: 600
   poll: 1
   delegate_to: "{{ groups['control'][0] }}"
+  when: airflow_install_agent
   tags:
   - skip_ansible_lint
 
@@ -97,5 +100,6 @@
   async: 600
   poll: 1
   delegate_to: "{{ groups['control'][0] }}"
+  when: airflow_install_master
   tags:
   - skip_ansible_lint
