@@ -111,7 +111,7 @@
     dest: '{{ airflow_home }}/airflow_db_config.py'
     owner: '{{ airflow_user }}'
     group: '{{ airflow_group }}'
-    mode: 0640
+    mode: 0740
 
 - name: Launch Airflow Upgradedb
   command: "{{ airflow_home }}/airflow_db_config.py"
