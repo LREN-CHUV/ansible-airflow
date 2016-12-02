@@ -41,7 +41,7 @@
     command: "/usr/local/bin/airflow scheduler"
     env:
       AIRFLOW_HOME: "{{ airflow_home }}"
-      PYTHONPATH: "{{ airflow_python_path }}"
+      PYTHONPATH: "{{ airflow_python_libraries_path }}"
     user: "{{ airflow_user }}"
     instances: 1
     cpus: '{{ airflow_scheduler_cpus }}'
@@ -75,7 +75,7 @@
     command: "/usr/local/bin/airflow webserver"
     env:
       AIRFLOW_HOME: "{{ airflow_home }}"
-      PYTHONPATH: "{{ airflow_python_path }}"
+      PYTHONPATH: "{{ airflow_python_libraries_path }}"
     user: "{{ airflow_user }}"
     instances: 1
     cpus: '{{ airflow_webserver_cpus }}'
