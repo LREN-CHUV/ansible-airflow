@@ -8,7 +8,7 @@ from sqlalchemy import orm
 from airflow import configuration
 
 Base = automap_base()
-engine = create_engine(configuration.get('mri', 'SQL_ALCHEMY_CONN'))
+engine = create_engine(configuration.get('code', 'SQL_ALCHEMY_CONN'))
 Base.prepare(engine, reflect=True)
 
 SlotPool = Base.classes.slot_pool
@@ -17,29 +17,29 @@ Variable = Base.classes.variable
 db_session = orm.Session(engine)
 
 def get_or_create_slot_pool(pool, slots, description):
-    instance = session.query(SlotPool).filter_by(pool=pool).first()
+    instance = db_session.query(SlotPool).filter_by(pool=pool).first()
     if instance:
         return instance
     else:
         instance = SlotPool(pool=pool, slots=slots, description=description)
-        session.add(instance)
-        session.commit()
+        db_session.add(instance)
+        db_session.commit()
         return instance
 
 def get_or_create_variable(key, val, is_encrypted=False):
-    instance = session.query(Variable).filter_by(key=key).first()
+    instance = db_session.query(Variable).filter_by(key=key).first()
     if instance:
         return instance
     else:
         instance = Variable(key=key, val=val, is_encrypted=is_encrypted)
-        session.add(instance)
-        session.commit()
+        db_session.add(instance)
+        db_session.commit()
         return instance
 
 {% for pool in airflow_slot_pools %}
-get_or_create_slot_pool({{ pool.name }}, {{ pool.slots }}, {{ pool.description | default("") }})
+get_or_create_slot_pool("{{ pool.name }}", {{ pool.slots }}, "{{ pool.description | default("") }}")
 {% endfor %}
 
 {% for v in airflow_variables %}
-get_or_create_variable({{ v.key }}, {{ v.value }})
+get_or_create_variable("{{ v.key }}", "{{ v.value }}")
 {% endfor %}
