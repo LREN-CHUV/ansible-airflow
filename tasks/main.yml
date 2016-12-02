@@ -113,7 +113,7 @@
     group: '{{ airflow_group }}'
     mode: 0740
 
-- name: Launch Airflow Upgradedb
+- name: Setup configuration for Airflow database
   command: "{{ airflow_home }}/airflow_db_config.py"
   environment:
     AIRFLOW_HOME: "{{ airflow_home }}"
