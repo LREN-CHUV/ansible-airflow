@@ -316,19 +316,19 @@ airflow_pip_packages:
 
 # List of slot pools to create in Airflow (similar to using the Pools menu in Airflow webserver)
 airflow_slot_pools: []
-#  - name=
-#    slots=
-#    description=
+#  - name:
+#    slots:
+#    description:
 
 # List of variables to create in Airflow (similar to using the Variables menu in Airflow webserver)
 airflow_variables: []
-#  - key=
-#    value=
+#  - key:
+#    value:
 
 # List of Git url and destination folder to download or update code for the DAGs or plugins used by Airflow
 airflow_scripts: []
-#  - url=
-#    version=latest
-#    verify_commit=False
-#    key_file=None
-#    dest=
+#  - url:
+#    version: latest
+#    verify_commit: False
+#    key_file: None
+#    dest:
