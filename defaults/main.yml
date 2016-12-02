@@ -314,6 +314,17 @@ airflow_pip_packages:
   - ndg-httpsclient
   - pyasn1
 
+# List of slot pools to create in Airflow (similar to using the Pools menu in Airflow webserver)
+airflow_slot_pools: []
+#  - name=
+#    slots=
+#    description=
+
+# List of variables to create in Airflow (similar to using the Variables menu in Airflow webserver)
+airflow_variables: []
+#  - key=
+#    value=
+
 # List of Git url and destination folder to download or update code for the DAGs or plugins used by Airflow
 airflow_scripts: []
 #  - url=

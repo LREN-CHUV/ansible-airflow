@@ -105,6 +105,22 @@
   changed_when: "airflow_upgradedb_result.rc != 0 or airflow_upgradedb_result.stdout.find('Running upgrade') >= 0"
   when: airflow_install_master
 
+- name: Generate the database configuration script
+  template:
+    src: airflow_db_config.py.j2
+    dest: '{{ airflow_home }}/airflow_db_config.py'
+    owner: '{{ airflow_user }}'
+    group: '{{ airflow_group }}'
+    mode: 0640
+
+- name: Launch Airflow Upgradedb
+  command: "{{ airflow_home }}/airflow_db_config.py"
+  environment:
+    AIRFLOW_HOME: "{{ airflow_home }}"
+    PYTHONPATH: "{{ airflow_python_libraries_path }}"
+  become: true
+  become_user: "{{ airflow_user }}"
+
 - name: Install Airflow scripts
   git:
     repo: '{{ item.url }}'
