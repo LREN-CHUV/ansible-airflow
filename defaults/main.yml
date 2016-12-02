@@ -6,15 +6,17 @@ airflow_version: '1.7.1.3'
 airflow_install_master: true
 airflow_install_agent: true
 
+python_location: '/usr/bin/python'
 python_pip: '/usr/bin/pip'
+airflow_python: '{{ python_location }}'
 airflow_pip: '{{ python_pip }}'
+airflow_python_libraries_path: '/usr/lib/python2.7/site-packages/'
 
 airflow_user: 'airflow'
 airflow_group: 'airflow'
 
 airflow_home: '/usr/local/airflow'
 airflow_config: '{{ airflow_home}}/airflow.cfg'
-airflow_python_path: '/usr/lib/python2.7/site-packages/'
 
 airflow_scheduler_cpus: 0.2
 airflow_scheduler_mem: 364.0
@@ -293,6 +295,18 @@ airflow_deb_packages:
   - locales
   - libffi-dev
   - libssl-dev
+
+# Python 3 and Ubuntu 16.04
+#  airflow_deb_packages:
+#    - netcat
+#    - curl
+#    - python3-pip
+#    - python3-dev
+#    - libffi-dev
+#    - build-essential
+#    - locales
+#    - libffi-dev
+#    - libssl-dev
 
 airflow_pip_packages:
   - "pytz==2015.7"
