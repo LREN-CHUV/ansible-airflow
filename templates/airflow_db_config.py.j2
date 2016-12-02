@@ -8,7 +8,7 @@ from sqlalchemy import orm
 from airflow import configuration
 
 Base = automap_base()
-engine = create_engine(configuration.get('code', 'SQL_ALCHEMY_CONN'))
+engine = create_engine(configuration.get('core', 'SQL_ALCHEMY_CONN'))
 Base.prepare(engine, reflect=True)
 
 SlotPool = Base.classes.slot_pool
