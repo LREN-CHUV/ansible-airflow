@@ -21,6 +21,7 @@ def get_or_create_slot_pool(pool, slots, description):
     if instance:
         return instance
     else:
+        print("Creating slot pool %s " % pool)
         instance = SlotPool(pool=pool, slots=slots, description=description)
         db_session.add(instance)
         db_session.commit()
@@ -31,6 +32,7 @@ def get_or_create_variable(key, val, is_encrypted=False):
     if instance:
         return instance
     else:
+        print("Creating variable %s " % key)
         instance = Variable(key=key, val=val, is_encrypted=is_encrypted)
         db_session.add(instance)
         db_session.commit()

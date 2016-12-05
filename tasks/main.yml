@@ -116,11 +116,13 @@
 
 - name: Setup configuration for Airflow database
   command: "{{ airflow_home }}/airflow_db_config.py"
+  register: airflow_db_config_result
   environment:
     AIRFLOW_HOME: "{{ airflow_home }}"
     PYTHONPATH: "{{ airflow_python_libraries_path }}"
   become: true
   become_user: "{{ airflow_user }}"
+  changed_when: "airflow_db_config_result.rc != 0 or airflow_db_config_result.stdout.find('Creating') >= 0"
   when: airflow_install_master
 
 - name: Install Airflow scripts
