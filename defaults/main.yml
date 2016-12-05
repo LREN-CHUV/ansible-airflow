@@ -332,3 +332,6 @@ airflow_scripts: []
 #    verify_commit: False
 #    key_file: None
 #    dest:
+
+# List of additional work directories to create for Airflow and its DAGs.
+airflow_work_dirs: []

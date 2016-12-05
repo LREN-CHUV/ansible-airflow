@@ -112,6 +112,7 @@
     owner: '{{ airflow_user }}'
     group: '{{ airflow_group }}'
     mode: 0740
+  when: airflow_install_master
 
 - name: Setup configuration for Airflow database
   command: "{{ airflow_home }}/airflow_db_config.py"
@@ -120,6 +121,7 @@
     PYTHONPATH: "{{ airflow_python_libraries_path }}"
   become: true
   become_user: "{{ airflow_user }}"
+  when: airflow_install_master
 
 - name: Install Airflow scripts
   git:
@@ -134,6 +136,15 @@
   with_items: "{{ airflow_scripts }}"
   tags:
     - airflow_scripts
+
+- name: Create additional work directories for Airflow and its DAGs
+  file:
+    path: '{{ item }}'
+    state: directory
+    owner: '{{ airflow_user }}'
+    group: '{{ airflow_group }}'
+    mode: 0750
+  with_items: '{{ airflow_work_dirs }}'
 
 - include: marathon.yml
   when: airflow_startup == 'marathon'
