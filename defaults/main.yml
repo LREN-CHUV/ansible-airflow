@@ -136,9 +136,9 @@ airflow_email_backend: 'airflow.utils.email.send_email_smtp'
 #airflow_smtp_host = localhost
 airflow_smtp_starttls: True
 airflow_smtp_ssl: False
-airflow_smtp_user: 'airflow'
 airflow_smtp_port: 25
-airflow_smtp_password: 'airflow'
+#airflow_smtp_user: 'airflow'
+#airflow_smtp_password: 'airflow'
 airflow_smtp_mail_from: 'airflow@airflow.local'
 
 # This section only applies if you are using the CeleryExecutor in
