@@ -78,10 +78,13 @@
     owner: '{{ airflow_user }}'
     mode: 0640
 
-- name: Remove uncompatible DAG example (example_twitter_dag.py)
+- name: Remove incompatible DAG example (example_twitter_dag.py)
   file:
-    path: /usr/local/lib/python2.7/dist-packages/airflow/example_dags/example_twitter_dag.py
+    path: '{{ item }}'
     state: absent
+  with_items:
+    - /usr/local/lib/python2.7/dist-packages/airflow/example_dags/example_twitter_dag.py
+    - /usr/local/lib/python3.5/dist-packages/airflow/example_dags/example_twitter_dag.py
 
 - name: Launch Airflow Initdb
   command: "/usr/local/bin/airflow initdb"
