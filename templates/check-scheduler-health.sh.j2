@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 pgrep -f 'airflow scheduler' | (
   echo "Airflow scheduler is not running" >&2
   exit 1
