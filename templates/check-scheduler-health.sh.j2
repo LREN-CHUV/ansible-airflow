@@ -2,7 +2,7 @@
 
 set -e
 
-pgrep -f 'airflow scheduler' | (
+pgrep -f 'airflow scheduler' > /dev/null || (
   echo "Airflow scheduler is not running" >&2
   exit 1
 )
