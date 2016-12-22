@@ -33,6 +33,14 @@
   tags:
   - skip_ansible_lint
 
+- name: Generate health check command for Airflow Scheduler
+  template:
+    src: 'check-scheduler-health.sh.j2'
+    dest: "{{ airflow_home }}/check-scheduler-health.sh"
+    owner: "{{ airflow_user }}"
+    group: "{{ airflow_group }}"
+    mode: 0755
+
 - name: Launch Airflow Scheduler using Marathon
   marathon_app:
     uri: "{{ internal_marathon_url }}"
@@ -55,7 +63,7 @@
     health_checks:
       - protocol: COMMAND
         command:
-          value: "pgrep -f 'airflow scheduler'"
+          value: "{{ airflow_home }}/check-scheduler-health.sh"
         gracePeriodSeconds: 300
         intervalSeconds: 60
         timeoutSeconds: 20

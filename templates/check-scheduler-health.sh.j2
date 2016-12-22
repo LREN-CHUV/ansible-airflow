@@ -1,0 +1,13 @@
+#!/bin/bash
+
+pgrep -f 'airflow scheduler' | (
+  echo "Airflow scheduler is not running" >&2
+  exit 1
+)
+
+touch -d '-{{ airflow_scheduler_expected_activity_period }}' '{{ airflow_scheduler_newerthan_file }}'
+n="$(find '{{ airflow_base_log_folder }}' -type f -newer '{{ airflow_scheduler_newerthan_file }}' | wc -l)"
+if [[ $n == 0 ]]; then
+  echo "Cannot detect any activity in Airflow logs for {{ airflow_scheduler_expected_activity_period }}" >&2
+  exit 1
+fi
