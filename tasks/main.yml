@@ -128,6 +128,16 @@
   changed_when: "airflow_db_config_result.rc != 0 or airflow_db_config_result.stdout.find('Creating') >= 0"
   when: airflow_install_master
 
+- name: Create parent directories for Airflow scripts
+  file:
+    state: 'directory'
+    path: '{{ item.dest | relpath('..')}}'
+    owner: '{{ airflow_user }}'
+    group: '{{ airflow_group }}'
+  with_items: "{{ airflow_scripts }}"
+  tags:
+    - airflow_scripts
+
 - name: Install Airflow scripts
   git:
     repo: '{{ item.url }}'
@@ -139,6 +149,8 @@
     force: yes
     update: yes
   with_items: "{{ airflow_scripts }}"
+  become: yes
+  become_user: "{{ airflow_user }}"
   tags:
     - airflow_scripts
 
