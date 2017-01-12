@@ -131,7 +131,7 @@
 - name: Create parent directories for Airflow scripts
   file:
     state: 'directory'
-    path: '{{ item.dest | relpath('..')}}'
+    path: "{{ item.dest | relpath('..')}}"
     owner: '{{ airflow_user }}'
     group: '{{ airflow_group }}'
   with_items: "{{ airflow_scripts }}"
