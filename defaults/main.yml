@@ -248,8 +248,8 @@ airflow_plugins:
   - name: crypto
     required_debs:
       - libssl-dev
-    required_pips:
-      - cryptography
+      - python-cryptography
+    required_pips: []
   - name: ldap
     required_debs:
       - libkrb5-dev
