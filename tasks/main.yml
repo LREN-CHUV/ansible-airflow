@@ -145,7 +145,6 @@
     verify_commit: "{{ item.verify_commit | default(False) }}"
     key_file: "{{ item.key_file | default(None) }}"
     dest: '{{ item.dest }}'
-    depth: 1
     force: yes
     update: yes
   with_items: "{{ airflow_scripts }}"
