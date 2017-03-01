@@ -236,7 +236,7 @@ default_secret = {{ airflow_mesos_default_secret }}
 
 {% for section in airflow_extra_settings %}
 [{{ section.section }}]
-{% for key, value in (section.parameters.iteritems()|dictsort) %}
+{% for key, value in (section.parameters.iteritems()|sort) %}
 {% if value != None %}
 {{ key }} = {{ value }}
 {% endif %}
