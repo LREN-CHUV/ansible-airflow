@@ -60,6 +60,12 @@
     regexp: '^#!.*'
     line: '#!{{ airflow_python }}'
 
+- name: Hotfix for Docker operator in Airflow 1.7.1.3
+  lineinfile:
+    dest: '{{ airflow_python_libraries_path}}/airflow/operators/docker_operator.py'
+    regexp: '                output = json\\.loads(l)'
+    line: '                output = json.loads(l.decode('utf-8'))'
+
 - name: Install airflow plugins
   pip:
     name: 'airflow[{{ item.name }}]=={{ airflow_version }}'
