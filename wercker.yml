@@ -37,5 +37,6 @@ build:
         code: |
           # Run the role/playbook again, checking to make sure it's idempotent.
           ansible-playbook -i tests/inventory -e airflow_sql_alchemy_conn='postgresql://airflow:airflowsecret@postgres/airflow' tests/playbook.yml --connection=local --sudo \
-            | tee /dev/stdout | grep -q 'changed=0.*failed=0' \
+            | tee run-again.log
+          cat run-again.log | grep -q 'changed=0.*failed=0' \
             && (echo 'Idempotence test: pass' && exit 0) || (echo 'Idempotence test: fail' && exit 1)
