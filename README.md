@@ -4,7 +4,7 @@
 
 Installs Airflow using Ansible.
 
-This Ansible role also supports starting Ansible using Marathon.
+This Ansible role also supports starting Ansible using Marathon. In this case, specify with the variable `marathon_version` the version of Marathon used.
 
 ## Continuous integration
 

@@ -260,6 +260,9 @@ airflow_plugins:
 # Startup method. One of service, marathon
 airflow_startup: 'service'
 
+# Version of Marathon used to start Airflow
+marathon_version: "1.4.1"
+
 # Pin Airflow scheduler to a particular host as it needs to store its files in a known place. The hostname should be the name known by Marathon / Mesos
 airflow_scheduler_marathon_host: '{{ inventory_hostname }}'
 
