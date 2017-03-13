@@ -98,7 +98,7 @@
     executor: ""
     wait_timeout: 600
     health_checks:
-      - protocol: "{% if marathon_version | version_compare('1.4', '>=') }MESOS_HTTP{% else %}HTTP{% endif %}"
+      - protocol: "{% if marathon_version | version_compare('1.4', '>=') %}MESOS_HTTP{% else %}HTTP{% endif %}"
         port: "{{ airflow_web_server_port }}"
         path: "/"
         gracePeriodSeconds: 300
