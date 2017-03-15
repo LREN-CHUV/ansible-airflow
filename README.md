@@ -10,7 +10,7 @@ This Ansible role also supports starting Ansible using Marathon. In this case, s
 
 This project uses two different continuous integration services to test different aspects of the project.
 
-[![CircleCI](https://circleci.com/gh/LREN-CHUV/ansible-airflow.svg?style=svg)](https://circleci.com/gh/LREN-CHUV/ansible-airflow)
+CircleCI: [![CircleCI](https://circleci.com/gh/LREN-CHUV/ansible-airflow.svg?style=svg)](https://circleci.com/gh/LREN-CHUV/ansible-airflow)
 
 CircleCI to validate the syntax of Ansible scripts using ansible-lint.
 
