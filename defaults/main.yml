@@ -239,6 +239,9 @@ airflow_plugins:
     required_debs:
       - postgresql-client
       - python-psycopg2
+    required_yums:
+      - postgresql
+      - python-psycopg2
     required_pips: []
   #- name: mysql
   #  required_debs:
@@ -250,11 +253,17 @@ airflow_plugins:
     required_debs:
       - libssl-dev
       - python-cryptography
+    required_yums:
+      - openssl-devel
+      - python-cryptography
     required_pips: []
   - name: ldap
     required_debs:
       - libkrb5-dev
       - libsasl2-dev
+    required_yums:
+      - krb5-devel
+      - libgsasl-devel
     required_pips: []
 
 # Startup method. One of service, marathon
@@ -304,6 +313,10 @@ airflow_deb_packages:
   - locales
   - libffi-dev
   - libssl-dev
+
+airflow_yum_packages:
+  - curl
+  - python34-pip
 
 # Python 3 and Ubuntu 16.04
 #  airflow_deb_packages:

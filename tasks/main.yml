@@ -23,8 +23,16 @@
     pkg: '{{ item }}'
     state: present
     update_cache: yes
-    cache_valid_time: 600
+    cache_valid_time: 3600
   with_items: "{{ airflow_deb_packages }}"
+  when: ansible_os_family == 'Debian'
+
+- name: Install required Yum packages
+  yum:
+    name: '{{ item }}'
+    state: present
+  with_items: "{{ airflow_yum_packages }}"
+  when: ansible_os_family == 'RedHat'
 
 - name: Install required Python packages
   pip:
@@ -38,8 +46,16 @@
     pkg: '{{ item }}'
     state: present
     update_cache: yes
-    cache_valid_time: 600
+    cache_valid_time: 3600
   with_flattened: "{{ airflow_plugins|map(attribute='required_debs')|list }}"
+  when: ansible_os_family == 'Debian'
+
+- name: Install required Yum packages for plugins
+  yum:
+    pkg: '{{ item }}'
+    state: present
+  with_flattened: "{{ airflow_plugins|map(attribute='required_yums')|list }}"
+  when: ansible_os_family == 'RedHat'
 
 - name: Install required Python packages for plugins
   pip:
