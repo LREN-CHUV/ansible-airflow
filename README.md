@@ -10,6 +10,7 @@ Supported systems:
 
 * Ubuntu 16.04
 * RedHat/Centos 7.2
+
 ## Continuous integration
 
 This project uses two different continuous integration services to test different aspects of the project.
