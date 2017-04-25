@@ -273,7 +273,7 @@ airflow_startup: 'service'
 marathon_version: "1.4.1"
 
 # Pin Airflow scheduler to a particular host as it needs to store its files in a known place. The hostname should be the name known by Marathon / Mesos
-airflow_scheduler_marathon_host: '{{ inventory_hostname }}'
+airflow_scheduler_marathon_host: '{{ marathon_hostname }}'
 
 airflow_scheduler_marathon_id: '/airflow/scheduler'
 airflow_scheduler_marathon_constraints: [["hostname", "CLUSTER", "{{ airflow_scheduler_marathon_host }}"]]
@@ -286,7 +286,7 @@ airflow_scheduler_newerthan_file: '/tmp/newerthan'
 airflow_scheduler_expected_activity_period: '2 hours'
 
 # Pin Airflow webserver to a particular host as it needs to store its files in a known place. The hostname should be the name known by Marathon / Mesos
-airflow_webserver_marathon_host: '{{ inventory_hostname }}'
+airflow_webserver_marathon_host: '{{ marathon_hostname }}'
 
 airflow_webserver_marathon_id: '/airflow/webserver'
 airflow_webserver_marathon_constraints: [["hostname", "CLUSTER", "{{ airflow_webserver_marathon_host }}"]]
