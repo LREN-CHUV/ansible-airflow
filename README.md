@@ -1,4 +1,4 @@
-[![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](https://github.com/LREN-CHUV/ansible-airflow/blob/master/LICENSE) [![CircleCI](https://circleci.com/gh/LREN-CHUV/ansible-airflow.svg?style=svg)](https://circleci.com/gh/LREN-CHUV/ansible-airflow) [![wercker status](https://app.wercker.com/status/9bab59ff38cd2dbf9f5ef1949fa75692/s/master "wercker status")](https://app.wercker.com/project/byKey/9bab59ff38cd2dbf9f5ef1949fa75692)
+[![CHUV](https://img.shields.io/badge/CHUV-LREN-AF4C64.svg)](https://www.unil.ch/lren/en/home.html) [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](https://github.com/LREN-CHUV/ansible-airflow/blob/master/LICENSE) [![CircleCI](https://circleci.com/gh/LREN-CHUV/ansible-airflow.svg?style=svg)](https://circleci.com/gh/LREN-CHUV/ansible-airflow) [![wercker status](https://app.wercker.com/status/9bab59ff38cd2dbf9f5ef1949fa75692/s/master "wercker status")](https://app.wercker.com/project/byKey/9bab59ff38cd2dbf9f5ef1949fa75692)
 
 # ansible-airflow
 
