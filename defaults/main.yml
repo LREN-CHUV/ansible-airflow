@@ -1,6 +1,6 @@
 ---
 
-airflow_version: '1.7.1.3'
+airflow_version: '1.8.1'
 
 # Control which part of Airflow is deployed: master = webserver + database
 airflow_install_master: true
@@ -235,6 +235,7 @@ airflow_plugins:
   - name: celery
     required_debs: []
     required_pips: []
+    required_yums: []
   - name: postgresql
     required_debs:
       - postgresql-client
@@ -314,9 +315,15 @@ airflow_deb_packages:
   - libffi-dev
   - libssl-dev
 
+# python2-crypto needed to generate Fernet keys with ansible
 airflow_yum_packages:
   - curl
-  - python34-pip
+  - python2-crypto
+  - python-pip
+  - gcc
+  - libffi-devel
+  - python-devel
+  - openssl-devel
 
 # Python 3 and Ubuntu 16.04
 #  airflow_deb_packages:
@@ -335,6 +342,9 @@ airflow_pip_packages:
   - pyOpenSSL
   - ndg-httpsclient
   - pyasn1
+
+airflow_bin_path: "{% if airflow_version | version_compare('1.8.0', '<') %}/usr/local/bin/airflow{% else %}/usr/bin/airflow{% endif %}"
+airflow_pip_package_name: "{% if airflow_version | version_compare('1.8.1', '>=') %}apache-airflow{% else %}airflow{% endif %}"
 
 # List of slot pools to create in Airflow (similar to using the Pools menu in Airflow webserver)
 airflow_slot_pools: []
@@ -357,3 +367,6 @@ airflow_scripts: []
 
 # List of additional work directories to create for Airflow and its DAGs.
 airflow_work_dirs: []
+
+# path to lib_role
+airflow_path_to_lib_role: "{{ lib_roles_path|default(playbook_dir + '/roles') }}"

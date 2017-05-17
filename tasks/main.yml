@@ -64,27 +64,36 @@
     state: present
   with_flattened: "{{ airflow_plugins|map(attribute='required_pips')|list }}"
 
+- name: Uninstall old airflow package
+  pip:
+    name: 'airflow'
+    executable: '{{ airflow_pip }}'
+    state: absent
+  when: airflow_version | version_compare('1.8.1', '>=')
+
 - name: Install airflow (first time installation takes a long time)
   pip:
-    name: 'airflow=={{ airflow_version }}'
+    name: "{{ airflow_pip_package_name }}=={{ airflow_version }}"
     executable: '{{ airflow_pip }}'
     state: present
 
 - name: Fix Python path in Airflow scripts
   lineinfile:
-    dest: /usr/local/bin/airflow
+    dest: "{{ airflow_bin_path }}"
     regexp: '^#!.*'
     line: '#!{{ airflow_python }}'
+  when: airflow_version | version_compare('1.8.0', '<')
 
 - name: Hotfix for Docker operator in Airflow 1.7.1.3
   replace:
     dest: '{{ airflow_python_local_dist_packages}}/airflow/operators/docker_operator.py'
     regexp:  "output = json\\.loads(l)"
     replace: "output = json.loads(l.decode('utf-8'))"
+  when: airflow_version | version_compare('1.8.1', '<')
 
 - name: Install airflow plugins
   pip:
-    name: 'airflow[{{ item.name }}]=={{ airflow_version }}'
+    name: '{{ airflow_pip_package_name }}[{{ item.name }}]=={{ airflow_version }}'
     executable: '{{ airflow_pip }}'
     state: present
   with_items: "{{ airflow_plugins }}"
@@ -109,7 +118,7 @@
     - /usr/local/lib/python3.5/dist-packages/airflow/example_dags/example_twitter_dag.py
 
 - name: Launch Airflow Initdb
-  command: "/usr/local/bin/airflow initdb"
+  command: "{{ airflow_bin_path }} initdb"
   register: airflow_initdb_result
   environment:
     AIRFLOW_HOME: "{{ airflow_home }}"
@@ -120,7 +129,7 @@
   when: airflow_install_master
 
 - name: Launch Airflow Upgradedb
-  command: "/usr/local/bin/airflow upgradedb"
+  command: "{{ airflow_bin_path }} upgradedb"
   register: airflow_upgradedb_result
   environment:
     AIRFLOW_HOME: "{{ airflow_home }}"

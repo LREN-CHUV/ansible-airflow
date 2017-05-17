@@ -3,7 +3,7 @@
 # Startup Airflow using Marathon
 
 - name: Wait for Marathon
-  include: ../../marathon-app/tasks/wait-for-marathon.yml
+  include: "{{ airflow_path_to_lib_role }}/marathon-app/tasks/wait-for-marathon.yml"
   vars:
     uri: "{{ internal_marathon_url }}"
 
@@ -46,7 +46,7 @@
     uri: "{{ internal_marathon_url }}"
     id: "{{ airflow_scheduler_marathon_id }}"
     state: "present"
-    command: "/usr/local/bin/airflow scheduler"
+    command: "{{ airflow_bin_path }} scheduler"
     env:
       AIRFLOW_HOME: "{{ airflow_home }}"
       PYTHONPATH: "{{ airflow_python_libraries_path }}"
@@ -68,6 +68,8 @@
         intervalSeconds: 60
         timeoutSeconds: 20
         maxConsecutiveFailures: 2
+    upgrade_strategy_minimum_health_capacity: 0.0
+    upgrade_strategy_maximum_over_capacity: 0.0
   async: 600
   poll: 1
   delegate_to: "{{ groups['control'][0] }}"
@@ -80,7 +82,7 @@
     uri: "{{ internal_marathon_url }}"
     id: "{{ airflow_webserver_marathon_id }}"
     state: "present"
-    command: "/usr/local/bin/airflow webserver"
+    command: "{{ airflow_bin_path }} webserver"
     env:
       AIRFLOW_HOME: "{{ airflow_home }}"
       PYTHONPATH: "{{ airflow_python_libraries_path }}"
@@ -105,6 +107,8 @@
         intervalSeconds: 60
         timeoutSeconds: 20
         maxConsecutiveFailures: 2
+    upgrade_strategy_minimum_health_capacity: 0.0
+    upgrade_strategy_maximum_over_capacity: 0.0
   async: 600
   poll: 1
   delegate_to: "{{ groups['control'][0] }}"
