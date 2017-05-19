@@ -363,6 +363,7 @@ airflow_scripts: []
 #    version: latest
 #    verify_commit: False
 #    key_file: None
+#    post_installation_script: None
 #    dest:
 
 # List of additional work directories to create for Airflow and its DAGs.

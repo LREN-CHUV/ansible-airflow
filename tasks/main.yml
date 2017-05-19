@@ -184,6 +184,18 @@
   tags:
     - airflow_scripts
 
+- name: Complete installation of Airflow scripts
+  shell: >
+    {{ item.post_installation_script }}
+  args:
+    chdir: '{{ item.dest }}'
+  when: item.post_installation_script is defined and item.post_installation_script
+  with_items: "{{ airflow_scripts }}"
+  become: yes
+  become_user: "{{ airflow_user }}"
+  tags:
+    - airflow_scripts
+
 - name: Create additional work directories for Airflow and its DAGs
   file:
     path: '{{ item }}'
