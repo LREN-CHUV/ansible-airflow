@@ -7,6 +7,7 @@
   vars:
     uri: "{{ internal_marathon_url }}"
 
+# Always remove the old web server, this server depends on the scheduler and should be installed last
 - name: Remove old Airflow Webserver using Marathon
   marathon_app:
     uri: "{{ internal_marathon_url }}"
@@ -16,7 +17,7 @@
   async: 600
   poll: 1
   delegate_to: "{{ groups['control'][0] }}"
-  when: airflow_install_master
+  when: airflow_install_master or airflow_install_agent
   tags:
   - skip_ansible_lint
 
@@ -29,7 +30,7 @@
   async: 600
   poll: 1
   delegate_to: "{{ groups['control'][0] }}"
-  when: airflow_install_master or airflow_install_agent
+  when: airflow_install_agent
   tags:
   - skip_ansible_lint
 
