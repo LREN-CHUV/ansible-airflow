@@ -39,7 +39,7 @@
     name: '{{ item }}'
     executable: '{{ airflow_pip }}'
     state: present
-  with_items: "{{ airflow_pip_packages }}"
+  with_items: "{{ airflow_required_pip_packages }}"
 
 - name: Install required Debian packages for plugins
   apt:
@@ -76,6 +76,13 @@
     name: "{{ airflow_pip_package_name }}=={{ airflow_version }}"
     executable: '{{ airflow_pip }}'
     state: present
+
+- name: Install additional Python packages
+  pip:
+    name: '{{ item }}'
+    executable: '{{ airflow_pip }}'
+    state: present
+  with_items: "{{ airflow_additional_pip_packages }}"
 
 - name: Fix Python path in Airflow scripts
   lineinfile:
