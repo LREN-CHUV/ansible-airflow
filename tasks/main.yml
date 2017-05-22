@@ -34,6 +34,8 @@
   with_items: "{{ airflow_yum_packages }}"
   when: ansible_os_family == 'RedHat'
 
+- debug: var=airflow_pip
+
 - name: Install required Python packages
   pip:
     name: '{{ item }}'
