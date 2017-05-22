@@ -159,6 +159,23 @@
   changed_when: "airflow_db_config_result.rc != 0 or airflow_db_config_result.stdout.find('Creating') >= 0"
   when: airflow_install_master
 
+- name: Define user in .gitconfig
+  ini_file:
+    dest: '{{ airflow_home }}/.gitconfig'
+    section: user
+    option: '{{ item.option }}'
+    value: '{{ item.value }}'
+    owner: airflow
+    group: airflow
+    mode: 0644
+    backup: yes
+  with_items:
+    - { option: 'email', value: "airflow@{{ ansible_fqdn }}" }
+    - { option: 'name', value: 'Airflow' }
+  when: airflow_scripts
+  tags:
+    - airflow_scripts
+
 - name: Create parent directories for Airflow scripts
   file:
     state: 'directory'
