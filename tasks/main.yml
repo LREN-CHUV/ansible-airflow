@@ -135,7 +135,6 @@
   become: true
   become_user: '{{ airflow_user }}'
   changed_when: "airflow_initdb_result.rc != 0 or airflow_initdb_result.stdout.find('Running upgrade') >= 0"
-  when: airflow_install_master
 
 - name: Launch Airflow Upgradedb
   command: "{{ airflow_bin_path }} upgradedb"
@@ -146,7 +145,6 @@
   become: true
   become_user: '{{ airflow_user }}'
   changed_when: "airflow_upgradedb_result.rc != 0 or airflow_upgradedb_result.stdout.find('Running upgrade') >= 0"
-  when: airflow_install_master
 
 - name: Generate the database configuration script
   template:
@@ -155,7 +153,6 @@
     owner: '{{ airflow_user }}'
     group: '{{ airflow_group }}'
     mode: 0740
-  when: airflow_install_master
 
 - name: Setup configuration for Airflow database
   command: "{{ airflow_home }}/airflow_db_config.py"
@@ -166,7 +163,6 @@
   become: true
   become_user: "{{ airflow_user }}"
   changed_when: "airflow_db_config_result.rc != 0 or airflow_db_config_result.stdout.find('Creating') >= 0"
-  when: airflow_install_master
 
 - name: Define user in .gitconfig
   ini_file:
