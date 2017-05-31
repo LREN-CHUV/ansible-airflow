@@ -348,7 +348,7 @@ airflow_required_pip_packages:
 
 airflow_additional_pip_packages: []
 
-airflow_bin_path: "{% if airflow_version | version_compare('1.8.0', '<') %}/usr/local/bin/airflow{% else %}/usr/bin/airflow{% endif %}"
+airflow_bin_path: "{% if ansible_os_family == 'Debian' or airflow_version | version_compare('1.8.0', '<') %}/usr/local/bin/airflow{% else %}/usr/bin/airflow{% endif %}"
 airflow_pip_package_name: "{% if airflow_version | version_compare('1.8.1', '>=') %}apache-airflow{% else %}airflow{% endif %}"
 
 # List of slot pools to create in Airflow (similar to using the Pools menu in Airflow webserver)
