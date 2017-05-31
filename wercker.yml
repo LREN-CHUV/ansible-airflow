@@ -21,6 +21,7 @@ build:
         name: Install Python requirements
         sudo: yes
         code: |
+          pip install --upgrade pip
           pip install -r tests/requirements.txt
     - script:
         name: Add this project as a role and marathon-app
