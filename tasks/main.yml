@@ -210,7 +210,7 @@
     - airflow_scripts
 
 - name: Complete installation of Airflow scripts
-  shell: >
+  command: >
     {{ item.post_installation_script }}
   args:
     chdir: '{{ item.dest }}'

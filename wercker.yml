@@ -1,4 +1,4 @@
-box: ju2wheels/ansible:2.x-ubuntu-16.04
+box: williamyeh/ansible:ubuntu16.04
 
 services:
   - id: postgres
@@ -10,6 +10,11 @@ services:
 build:
   # The steps that will be executed on build
   steps:
+    - script:
+        name: Update apt repository
+        sudo: yes
+        code: |
+          apt-get update
     - install-packages:
         packages: git sudo python-pip libffi-dev libssh-dev
     - script:
