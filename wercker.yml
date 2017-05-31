@@ -16,7 +16,7 @@ build:
         code: |
           apt-get update
     - install-packages:
-        packages: git sudo python-pip libffi-dev libssh-dev
+        packages: git sudo python-pip libffi-dev libssh-dev postgresql-client
     - script:
         name: Install Python requirements
         sudo: yes
