@@ -1,4 +1,4 @@
-box: williamyeh/ansible:ubuntu16.04
+box: ju2wheels/ansible:2.x-ubuntu-16.04
 
 services:
   - id: postgres
