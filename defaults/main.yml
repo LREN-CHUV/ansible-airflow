@@ -14,7 +14,10 @@ airflow_python_local_dist_packages: '/usr/local/lib/python2.7/dist-packages'
 airflow_python_libraries_path: '{{ airflow_python_local_dist_packages }}'
 
 airflow_user: 'airflow'
+# airflow_user_id:
+# airflow_user_groups:
 airflow_group: 'airflow'
+# airflow_group_id:
 
 airflow_home: '/usr/local/airflow'
 airflow_config: '{{ airflow_home}}/airflow.cfg'

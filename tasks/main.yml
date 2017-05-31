@@ -3,12 +3,15 @@
 - name: Create group for Airflow
   group:
     name: '{{ airflow_group }}'
+    gid: '{{ airflow_group_id | default(omit)}}'
     state: present
 
 - name: Create user for Airflow
   user:
     name: '{{ airflow_user }}'
+    uid: '{{ airflow_user_id | default(omit)}}'
     group: '{{ airflow_group }}'
+    groups: '{{ airflow_user_groups | default(omit)}}'
     home: '{{ airflow_home }}'
   when: airflow_user != 'vagrant'
 
