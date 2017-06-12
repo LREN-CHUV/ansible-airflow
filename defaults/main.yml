@@ -312,7 +312,6 @@ airflow_deb_packages:
   - curl
   - python-pip
   - python-dev
-  - libffi-dev
   - build-essential
   - locales
   - libffi-dev
@@ -334,7 +333,6 @@ airflow_yum_packages:
 #    - curl
 #    - python3-pip
 #    - python3-dev
-#    - libffi-dev
 #    - build-essential
 #    - locales
 #    - libffi-dev
