@@ -1,0 +1,26 @@
+---
+
+version: 2
+jobs:
+  build:
+    working_directory: ~/src
+    docker:
+      - image: hbpmip/docker-compose-for-ci:17.06-0
+    environment:
+       - CIRCLECI: true
+    steps:
+      - setup_remote_docker:
+          version: 17.06.0-ce
+      - checkout
+      - run:
+          name: "Install requirements"
+          command: |
+            docker --version
+            pre-commit install
+            mkdir -p .molecule/roles
+            git clone https://github.com/ludovicc/ansible-marathon_app.git ../marathon-app
+            pip install -r tests/requirements.txt
+      - run:
+          name: "Validate code quality"
+          command: |
+            pre-commit run --all-files
