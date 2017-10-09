@@ -19,6 +19,7 @@ jobs:
             pre-commit install
             mkdir -p .molecule/roles
             git clone https://github.com/ludovicc/ansible-marathon_app.git ../marathon-app
+            apk --update --no-cache add libffi
             pip install -r tests/requirements.txt
       - run:
           name: "Validate code quality"
