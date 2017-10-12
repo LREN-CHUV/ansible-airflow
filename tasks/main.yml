@@ -180,7 +180,7 @@
   with_items:
     - { option: 'email', value: "airflow@{{ ansible_fqdn }}" }
     - { option: 'name', value: 'Airflow' }
-  when: airflow_scripts
+  when: airflow_scripts|length > 0
   tags:
     - airflow_scripts
 
