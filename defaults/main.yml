@@ -280,7 +280,7 @@ marathon_version: "1.4.1"
 airflow_scheduler_marathon_host: '{{ marathon_hostname }}'
 
 airflow_scheduler_marathon_id: '/airflow/scheduler'
-airflow_scheduler_marathon_constraints: [["hostname", "CLUSTER", "{{ airflow_scheduler_marathon_host }}"]]
+airflow_scheduler_marathon_constraints: [["hostname", "CLUSTER", "{{ airflow_scheduler_marathon_host | trim }}"]]
 airflow_scheduler_marathon_dependencies:
   - "{{ airflow_db_marathon_id }}"
 
@@ -293,7 +293,7 @@ airflow_scheduler_expected_activity_period: '2 hours'
 airflow_webserver_marathon_host: '{{ marathon_hostname }}'
 
 airflow_webserver_marathon_id: '/airflow/webserver'
-airflow_webserver_marathon_constraints: [["hostname", "CLUSTER", "{{ airflow_webserver_marathon_host }}"]]
+airflow_webserver_marathon_constraints: [["hostname", "CLUSTER", "{{ airflow_webserver_marathon_host | trim }}"]]
 airflow_webserver_marathon_dependencies:
   - "{{ airflow_db_marathon_id }}"
   - "{{ airflow_scheduler_marathon_id }}"
