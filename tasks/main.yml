@@ -173,8 +173,8 @@
     section: user
     option: '{{ item.option }}'
     value: '{{ item.value }}'
-    owner: airflow
-    group: airflow
+    owner: '{{ airflow_user }}'
+    group: '{{ airflow_group }}'
     mode: 0644
     backup: yes
   with_items:
