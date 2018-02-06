@@ -49,6 +49,7 @@
     state: "present"
     command: "{{ airflow_bin_path }} scheduler"
     env:
+      HOME: "{{ airflow_home }}"
       AIRFLOW_HOME: "{{ airflow_home }}"
       PYTHONPATH: "{{ airflow_python_libraries_path }}"
     user: "{{ airflow_user }}"
