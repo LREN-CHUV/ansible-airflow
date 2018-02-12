@@ -1,6 +1,6 @@
 ---
 
-airflow_version: '1.8.2'
+airflow_version: '1.9.0'
 
 # Control which part of Airflow is deployed: master = webserver + database
 airflow_install_master: true
