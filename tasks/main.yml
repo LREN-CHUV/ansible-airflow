@@ -232,5 +232,5 @@
     mode: 0750
   with_items: '{{ airflow_work_dirs }}'
 
-- include: marathon.yml
+- include_tasks: marathon.yml
   when: airflow_startup == 'marathon'
