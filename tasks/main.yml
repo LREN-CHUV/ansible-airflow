@@ -74,7 +74,7 @@
     name: 'airflow'
     executable: '{{ airflow_pip }}'
     state: absent
-  when: airflow_version | version_compare('1.8.1', '>=')
+  when: airflow_version is version_compare('1.8.1', '>=')
 
 - name: Install airflow (first time installation takes a long time)
   pip:
@@ -94,14 +94,14 @@
     dest: "{{ airflow_bin_path }}"
     regexp: '^#!.*'
     line: '#!{{ airflow_python }}'
-  when: airflow_version | version_compare('1.8.0', '<')
+  when: airflow_version is version_compare('1.8.0', '<')
 
 - name: Hotfix for Docker operator in Airflow 1.7.1.3
   replace:
     dest: '{{ airflow_python_local_dist_packages}}/airflow/operators/docker_operator.py'
     regexp:  "output = json\\.loads(l)"
     replace: "output = json.loads(l.decode('utf-8'))"
-  when: airflow_version | version_compare('1.8.1', '<')
+  when: airflow_version is version_compare('1.8.1', '<')
 
 - name: Install airflow plugins
   pip:

@@ -3,7 +3,7 @@
 # Startup Airflow using Marathon
 
 - name: Wait for Marathon
-  include: "{{ airflow_path_to_lib_role }}/marathon-app/tasks/wait-for-marathon.yml"
+  include_tasks: "{{ airflow_path_to_lib_role }}/marathon-app/tasks/wait-for-marathon.yml"
   vars:
     uri: "{{ internal_marathon_url }}"
 
@@ -103,7 +103,7 @@
     executor: ""
     wait_timeout: 600
     health_checks:
-      - protocol: "{% if marathon_version | version_compare('1.4', '>=') %}MESOS_HTTP{% else %}HTTP{% endif %}"
+      - protocol: "{% if marathon_version is version('1.4', '>=') %}MESOS_HTTP{% else %}HTTP{% endif %}"
         portIndex: 0
         path: "/"
         gracePeriodSeconds: 300
