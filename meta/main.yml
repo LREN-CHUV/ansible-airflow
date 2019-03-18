@@ -4,15 +4,14 @@ galaxy_info:
   author: LREN-CHUV
   description: "Installs Airflow using Ansible, also starts Airflow in a cluster managed by Mesos and Marathon"
   license: "MIT license"
-  min_ansible_version: 2.0
+  min_ansible_version: 2.4
   platforms:
     - name: Ubuntu
       versions:
-      - all
+        - all
     - name: Debian
       versions:
-      - all
-
+        - all
   galaxy_tags:
     - application
     - system
