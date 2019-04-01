@@ -5,7 +5,7 @@ jobs:
   build:
     working_directory: ~/src
     docker:
-      - image: hbpmip/docker-compose-for-ci:17.06-1
+      - image: hbpmip/docker-compose-for-ci:18.09-1
     environment:
        - CIRCLECI: true
     steps:
