@@ -20,6 +20,7 @@ jobs:
             mkdir -p .molecule/roles
             git clone https://github.com/ludovicc/ansible-marathon_app.git ../marathon-app
             apk --update --no-cache add libffi-dev openssl-dev ansible
+            pip install --upgrade ansible
             pip install -r tests/requirements.txt
       - run:
           name: "Validate code quality"
