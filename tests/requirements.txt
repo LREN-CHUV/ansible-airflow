@@ -5,3 +5,7 @@ ansible-lint>=4.1.0
 pre-commit==1.15.1
 piprot==0.9.10
 docker-py==1.10.6
+anyconfig>=0.10.0 # not directly required, pinned by Snyk to avoid a vulnerability
+jinja2>=2.11.3 # not directly required, pinned by Snyk to avoid a vulnerability
+psutil>=5.6.7 # not directly required, pinned by Snyk to avoid a vulnerability
+pyyaml>=5.4 # not directly required, pinned by Snyk to avoid a vulnerability
