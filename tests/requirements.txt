@@ -5,3 +5,4 @@ ansible-lint>=4.1.0
 pre-commit==1.15.1
 piprot==0.9.10
 docker-py==1.10.6
+ansible-core>=2.13.13rc1 # not directly required, pinned by Snyk to avoid a vulnerability
